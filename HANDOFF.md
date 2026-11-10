@@ -53,3 +53,10 @@ Hero strong (close to LMNT); after the hero it reads "nice dark template". Flavo
 - Slides/Apps Script: NEVER run build() (wipes photos); the Run dropdown resets to "build" after every editor reload: reselect + zoom-confirm. New function → save, reload, dismiss "signed in as" popup (OK ~1435,230), pick from dropdown. Every one-shot function gets a guard (slide count + "already done" text). Find slides by unique header/footer text, not titles. pres.replaceAllText covers notes; new text must not contain old text. javascript_tool output with URLs or = gets blocked. browser_batch can't act after a navigate. Check slides in slideshow (cmd+Return). Slides can't embed a live site: linked screenshot + QR.
 - Hero stays SHORT with real info visible. No hard cuts. Floating objects OK, never over copy.
 - Short casual progress updates; write a lessons rule for every fixed bug.
+
+## v2 STATUS (Nov 10 2026, chat 2)
+- School Google account = Browser 3 (same Chrome as Flow). Browser 2 = Access Denied on the deck.
+- Steps 1–9 DONE. Blind judge: v2 7/10 looks (v1 6.5), wins Memory + "stop scrolling"; template tells it named are brief-mandated (lime on black, period headlines). Fixed all its concrete bugs.
+- New assets: img/o-*.webp (fruit cutouts), img/box12.webp + box12-mask.png (t-map: out = px + t*1.2*(team - lime 185,233,19)), sources in assets/flv_*.png + box12.png.
+- QA scripts used: overlap check (objects vs copy/dock/nav at every scene hold, 5 viewports), overflow 320–430, RM check.
+- NEXT: step 10 (deck slide) — waiting on Rafael: slide position + speaker split. Step 11 (Mac Downloads cleanup) needs his OK.

@@ -4,6 +4,6 @@ One-page interactive site for HalfTime Chews, a class marketing-plan product ide
 
 - Static HTML/CSS/JS, GSAP + ScrollTrigger + Lenis (vendored in `js/`)
 - Hero: scroll tears the pack open, chews pop out and fly into the flavor cards
-- 30:00 clock, strength picker, where we sell, mock checkout (no real payment)
+- v2: 3 pinned flavor scenes (citrus/berry/watermelon, parallax fruit, chew dock), 950 mg problem band, 30:00 clock + Tear/Chew/Keep going steps, strength picker + "What's inside" panel, positioning map, where we sell, box-of-12 checkout with team-color recolor (canvas), FAQ
 
 Images: AI concepts made in Google Flow (pack, chews, context photos). Source files in `assets/`.

@@ -21,17 +21,21 @@
     <li><a href="#flavors">Flavors</a></li>
     <li><a href="#how">How it works</a></li>
     <li><a href="#strength">Strength</a></li>
-    <li><a href="#where">Where to buy</a></li>
+    <li><a href="#why">Why a chew</a></li>
+    <li><a href="#faq">FAQ</a></li>
   </ul>
   <a class="nav-order" href="#order">Order <span class="cart-n" aria-live="polite">0</span></a>
 </nav>
 
 <main id="top">
 
-<!-- HERO + FLAVORS: one pinned stage -->
+<!-- HERO + FLAVOR SCENES: one pinned stage -->
 <section class="stage" id="stage" aria-label="HalfTime Chews">
   <div class="stage-in">
-    <div class="glow"></div>
+    <div class="glow g-hero"></div>
+    <div class="glow g-s" style="--c:#FF8A2A"></div>
+    <div class="glow g-s" style="--c:#9D6BFF"></div>
+    <div class="glow g-s" style="--c:#FF5FA2"></div>
     <div class="tear-line" aria-hidden="true"><span>TEAR HERE</span></div>
 
     <div class="hero-copy">
@@ -54,19 +58,38 @@
       <a class="btn" href="#strength">Find your strength</a>
     </div>
 
-    <p class="scroll-hint" aria-hidden="true">Scroll to tear it open</p>
+    <!-- floating flavor objects (placed by JS) -->
+    <div class="objs" aria-hidden="true"></div>
 
-    <!-- flavor grid lives on the same stage; chews fly into it -->
-    <div class="flavors" id="flavors">
-      <div class="flv-head">
-        <h2>Three flavors we're testing.</h2>
-        <p>Same chew, same strengths. Tell us which one wins.</p>
-      </div>
-      <div class="flv-grid">
-        <article class="flv" style="--c:#FF8A2A"><div class="slot"></div><h3>Citrus</h3><p>Bright orange citrus.</p><span class="tag">Flavor idea</span></article>
-        <article class="flv" style="--c:#9D6BFF"><div class="slot"></div><h3>Berry</h3><p>Deep mixed berry.</p><span class="tag">Flavor idea</span></article>
-        <article class="flv" style="--c:#FF5FA2"><div class="slot"></div><h3>Watermelon</h3><p>Light, sweet watermelon.</p><span class="tag">Flavor idea</span></article>
-      </div>
+    <!-- three flavor scenes on the same stage -->
+    <div class="scenes" id="flavors">
+      <article class="scene s1" style="--c:#FF8A2A">
+        <p class="sc-k">Flavor idea we're testing</p>
+        <h2 class="sc-name">Citrus.</h2>
+        <p class="sc-line">Bright orange with a little zest.</p>
+        <p class="sc-meta">Same chew · all 3 strengths · 4 per pack</p>
+        <img class="sc-rm" src="img/chew-citrus.webp" alt="Orange citrus chew" width="400" height="400">
+      </article>
+      <article class="scene s2" style="--c:#9D6BFF">
+        <p class="sc-k">Flavor idea we're testing</p>
+        <h2 class="sc-name">Berry.</h2>
+        <p class="sc-line">Deep mixed berry.</p>
+        <p class="sc-meta">Same chew · all 3 strengths · 4 per pack</p>
+        <img class="sc-rm" src="img/chew-berry.webp" alt="Violet berry chew" width="400" height="400">
+      </article>
+      <article class="scene s3" style="--c:#FF5FA2">
+        <p class="sc-k">Flavor idea we're testing</p>
+        <h2 class="sc-name">Watermelon.</h2>
+        <p class="sc-line">Light, sweet watermelon.</p>
+        <p class="sc-meta">Same chew · all 3 strengths · 4 per pack</p>
+        <img class="sc-rm" src="img/chew-watermelon.webp" alt="Pink watermelon chew" width="400" height="400">
+      </article>
+    </div>
+
+    <div class="dock" aria-hidden="true">
+      <div class="dk" style="--c:#FF8A2A"><i></i><span>Citrus</span></div>
+      <div class="dk" style="--c:#9D6BFF"><i></i><span>Berry</span></div>
+      <div class="dk" style="--c:#FF5FA2"><i></i><span>Watermelon</span></div>
     </div>
 
     <div class="chew c1" aria-hidden="true"><img src="img/chew-citrus.webp" alt=""></div>
@@ -75,26 +98,41 @@
   </div>
 </section>
 
-<!-- HOW IT WORKS: the 30:00 clock -->
+<!-- THE PROBLEM -->
+<section class="prob" aria-labelledby="probH">
+  <div class="prob-num">
+    <p class="big" aria-hidden="true"><span class="n950">950</span><small>mg</small></p>
+    <h2 id="probH" class="prob-h">of sodium lost in every liter of sweat.</h2>
+  </div>
+  <ul class="prob-list">
+    <li><span>Water alone can't put it back.</span></li>
+    <li><span>Drinks need mixing and leak in your bag.</span></li>
+    <li><span>Chews come in one strength for everyone.</span></li>
+    <li class="ours"><b>HalfTime:</b> 3 strengths, no water, holds up in heat.</li>
+  </ul>
+</section>
+
+<!-- HOW IT WORKS: the 30:00 clock + steps -->
 <section class="how" id="how">
   <div class="how-in">
     <div class="clock-wrap">
+      <p class="mono">How it works</p>
       <div class="clock" aria-hidden="true"><span class="mm">30</span><span class="col">:</span><span class="ss">00</span></div>
       <p class="clock-label"><span class="cl-a">Hard play or work</span><span class="cl-b">Time for 2 chews</span></p>
     </div>
     <div class="how-copy">
       <h2>Two chews about every 30 minutes.</h2>
-      <p class="lead">Keep drinking water too. The chews help replace electrolytes lost in sweat.</p>
-      <ul class="how-list">
-        <li><b>No water, no mixing</b><span>Tear the pack and chew. Nothing to shake.</span></li>
-        <li><b>Heat-resistant</b><span>Made to handle the heat, so it won't melt in a hot bag.</span></li>
-        <li><b>4 soft chews a pack</b><span>Sold as a dietary supplement.</span></li>
-      </ul>
+      <ol class="steps">
+        <li class="stp on"><div class="stp-img"><img src="img/pack-torn.webp" alt="" width="714" height="1000" loading="lazy"></div><div><b>Tear.</b><span>Pick green, yellow or red and rip it open.</span></div></li>
+        <li class="stp"><div class="stp-img two"><img src="img/chew-lime.webp" alt="" loading="lazy"><img src="img/chew-citrus.webp" alt="" loading="lazy"></div><div><b>Chew.</b><span>2 chews about every 30 minutes of hard play or work.</span></div></li>
+        <li class="stp"><div class="stp-img"><img src="img/pack.webp" alt="" width="714" height="1000" loading="lazy"></div><div><b>Keep going.</b><span>One pack is about 1 hour. Keep drinking water too.</span></div></li>
+      </ol>
+      <p class="how-foot">Ready in seconds. Nothing to mix, carry or keep cold.</p>
     </div>
   </div>
 </section>
 
-<!-- STRENGTH PICKER -->
+<!-- STRENGTH PICKER + WHAT'S INSIDE -->
 <section class="strength" id="strength">
   <div class="st-head">
     <h2>Pick your strength.</h2>
@@ -106,50 +144,109 @@
       <button class="q" type="button" aria-pressed="false" data-q="hot"><span class="q-box"></span><span class="q-t">Hot out?</span></button>
       <button class="q" type="button" aria-pressed="false" data-q="salt"><span class="q-box"></span><span class="q-t">Salt marks on your shirt?</span></button>
       <p class="q-note">Tap the ones that are true for you.</p>
+      <div class="lineup">
+        <button class="lu" type="button" data-s="0" style="--s:#3DD68C"><b>Green · Light</b><span>150 mg · practice, gym · 14+</span></button>
+        <button class="lu" type="button" data-s="1" style="--s:#FFD23F"><b>Yellow · Hard</b><span>250 mg · games, long runs · 14+</span></button>
+        <button class="lu" type="button" data-s="2" style="--s:#E5484D"><b>Red · Extreme</b><span>500 mg · heat, long shifts · 16+ only</span></button>
+      </div>
     </div>
     <div class="result" aria-live="polite">
-      <div class="res-pack">
-        <img src="img/pack.webp" alt="HalfTime Chews pack" width="714" height="1000">
-        <div class="res-band"></div>
+      <div class="res-top">
+        <div class="res-pack">
+          <img src="img/pack.webp" alt="HalfTime Chews pack" width="714" height="1000">
+          <div class="res-band"></div>
+        </div>
+        <div class="res-copy">
+          <p class="res-k">Your strength</p>
+          <h3 class="res-name">Green · Light</h3>
+          <p class="res-use">Practice and the gym. Ages 14+.</p>
+          <a class="btn res-btn" href="#order">Order Green</a>
+        </div>
       </div>
-      <div class="res-copy">
-        <p class="res-k">Your strength</p>
-        <h3 class="res-name">Green · Light</h3>
-        <p class="res-mg"><b>150 mg</b> sodium</p>
-        <p class="res-use">Practice and the gym. Ages 14+.</p>
-        <p class="res-extra"></p>
-        <a class="btn res-btn" href="#order">Order Green</a>
+      <div class="facts-panel" aria-label="What's inside">
+        <div class="fp-head"><b>What's inside</b><span>Per pack · 4 soft chews</span></div>
+        <dl class="fp-rows"></dl>
+        <p class="fp-use">Chew 2 about every 30 minutes. One pack is about 1 hour of play. Keep drinking water.</p>
+        <p class="fp-note">Target recipe; a manufacturer would finalize it. Dietary supplement. Helps replace electrolytes lost in sweat. High blood pressure? Ask a doctor first.</p>
       </div>
     </div>
-  </div>
-  <div class="lineup">
-    <button class="lu" type="button" data-s="0" style="--s:#3DD68C"><b>Green · Light</b><span>150 mg sodium</span><em>Practice, gym · 14+</em></button>
-    <button class="lu" type="button" data-s="1" style="--s:#FFD23F"><b>Yellow · Hard</b><span>250 mg sodium</span><em>Games, long runs · 14+</em></button>
-    <button class="lu" type="button" data-s="2" style="--s:#E5484D"><b>Red · Extreme</b><span>500 mg sodium</span><em>Heat, long shifts · 16+ only</em></button>
   </div>
 </section>
 
-<!-- WHERE WE SELL -->
+<!-- WHY A CHEW: positioning map -->
+<section class="why" id="why">
+  <div class="why-head">
+    <h2>Where we fit.</h2>
+    <p>Most fixes need water or come in one strength. We do neither.</p>
+  </div>
+  <div class="why-body">
+    <div class="map" role="img" aria-label="Map: HalfTime is the only one matched to your sweat with no water needed. Gatorade, Nuun, Prime and Liquid I.V. need water and come in one strength. SaltStick needs no water but has one strength.">
+      <div class="ax ax-x"></div><div class="ax ax-y"></div>
+      <span class="al al-t">Matched to your sweat</span>
+      <span class="al al-b">One strength for all</span>
+      <span class="al al-l">Needs water</span>
+      <span class="al al-r">No water needed</span>
+      <div class="dot" style="--x:-.80;--y:-.32"><i></i>Gatorade</div>
+      <div class="dot" style="--x:-.31;--y:-.28"><i></i>Nuun</div>
+      <div class="dot" style="--x:-.44;--y:-.57"><i></i>Prime</div>
+      <div class="dot" style="--x:-.69;--y:-.74"><i></i>Liquid I.V.</div>
+      <div class="dot" style="--x:.56;--y:-.55"><i></i>SaltStick</div>
+      <div class="dot us" style="--x:.62;--y:.62"><i></i>HalfTime</div>
+    </div>
+    <div class="why-side">
+      <p class="why-pos">The electrolyte chew that matches your sweat level, holds up in heat and wears your team colors.</p>
+      <dl class="cmp">
+        <div><dt>Gatorade</dt><dd>Bottle · about 68% of sports drinks</dd></div>
+        <div><dt>Nuun</dt><dd>Tablet · $6.94 per 10 · needs water</dd></div>
+        <div><dt>Liquid I.V.</dt><dd>Powder · $8.97 per 6 · needs water</dd></div>
+        <div><dt>Prime</dt><dd>Bottle · $1.99 · best served cold</dd></div>
+        <div><dt>SaltStick</dt><dd>Chew · about $1.40 per 4 · one strength</dd></div>
+        <div class="us"><dt>HalfTime</dt><dd>Chew · $1.49 per 4 · 3 strengths</dd></div>
+      </dl>
+      <p class="why-src">Store prices from Walmart, Running Warehouse, Tennis Warehouse and Vitamin Shoppe. Prices change by store and date.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHO + WHERE WE SELL -->
 <section class="where" id="where">
   <div class="wh-head">
     <h2>For anyone who sweats.</h2>
-    <p>We sell where people already are.</p>
+    <p>Same chew everywhere. Only the pack size and the message change.</p>
   </div>
   <div class="wh-rows">
     <article class="wh">
       <figure><img src="img/ctx-athlete.webp" alt="A soccer player on the bench at night, holding a HalfTime pack" loading="lazy" width="1400" height="781"></figure>
-      <div class="wh-t"><h3>Teams</h3><p>High school: team orders and fundraisers. College and club: campus shops.</p></div>
+      <div class="wh-t">
+        <p class="wh-sub">High school · college · pro</p>
+        <h3>Teams</h3>
+        <q>Refuel in two minutes.</q>
+        <p class="wh-where">Team orders, fundraisers, campus shops.</p>
+        <p class="wh-stat"><b>8.27M</b> high school + <b>554K</b> NCAA athletes</p>
+      </div>
     </article>
     <article class="wh">
       <figure><img src="img/ctx-gym.webp" alt="A gym bag on a bench with a HalfTime pack, someone tying their shoes behind it" loading="lazy" width="1400" height="781"></figure>
-      <div class="wh-t"><h3>Gyms and runners</h3><p>Gym front desks, run shops and race expos.</p></div>
+      <div class="wh-t">
+        <p class="wh-sub">Gyms · run shops · races</p>
+        <h3>Gyms and runners</h3>
+        <q>No mixing, no mess.</q>
+        <p class="wh-where">Front desks, run shops, race expos.</p>
+        <p class="wh-stat"><b>77M</b> US gym members + runners</p>
+      </div>
     </article>
     <article class="wh">
       <figure><img src="img/ctx-worker.webp" alt="A construction worker taking a break on a stack of lumber" loading="lazy" width="1400" height="781"></figure>
-      <div class="wh-t"><h3>Work crews</h3><p>Through safety managers, for crews working in the heat.</p></div>
+      <div class="wh-t">
+        <p class="wh-sub">Job sites · safety teams</p>
+        <h3>Work crews</h3>
+        <q>Easy salt on the job.</q>
+        <p class="wh-where">Through safety managers.</p>
+        <p class="wh-stat">Outdoor crews in <b>summer heat</b></p>
+      </div>
     </article>
   </div>
-  <p class="wh-online">Everyone else: right here on our site and on Amazon.</p>
+  <div class="wh-online"><span>Everyone else</span><b>Our site + Amazon.</b><span class="wh-ages">Ages 14 to 45+ · Philly first, then the US</span></div>
 </section>
 
 <!-- MOCK CHECKOUT -->
@@ -164,8 +261,8 @@
         <legend>Size</legend>
         <div class="chips" data-group="size">
           <label><input type="radio" name="size" value="single" checked><span><b>Single pack</b><em>4 chews · $1.49</em></span></label>
-          <label><input type="radio" name="size" value="box12"><span><b>Box of 12</b><em>12 packs · $14.99</em></span></label>
-          <label><input type="radio" name="size" value="team48"><span><b>Team box of 48</b><em>48 packs · $49</em></span></label>
+          <label><input type="radio" name="size" value="box12"><span><b>Box of 12</b><em>About $1.25 a pack · $14.99</em></span></label>
+          <label><input type="radio" name="size" value="team48"><span><b>Team box of 48</b><em>About $1.02 a pack · $49</em></span></label>
         </div>
       </fieldset>
       <fieldset>
@@ -194,10 +291,10 @@
         <div class="colors" id="colorPick" hidden>
           <button type="button" class="cc" style="--k:#1E3A8A" data-n="Navy" aria-label="Navy"></button>
           <button type="button" class="cc" style="--k:#2563EB" data-n="Royal blue" aria-label="Royal blue"></button>
-          <button type="button" class="cc" style="--k:#7F1D1D" data-n="Maroon" aria-label="Maroon"></button>
-          <button type="button" class="cc" style="--k:#166534" data-n="Forest" aria-label="Forest"></button>
-          <button type="button" class="cc" style="--k:#C2410C" data-n="Burnt orange" aria-label="Burnt orange"></button>
-          <button type="button" class="cc" style="--k:#F2EEE4" data-n="White" aria-label="White"></button>
+          <button type="button" class="cc" style="--k:#8B1E2B" data-n="Maroon" aria-label="Maroon"></button>
+          <button type="button" class="cc" style="--k:#1F7A3A" data-n="Forest" aria-label="Forest"></button>
+          <button type="button" class="cc" style="--k:#D9581E" data-n="Orange" aria-label="Orange"></button>
+          <button type="button" class="cc" style="--k:#5B2A86" data-n="Purple" aria-label="Purple"></button>
         </div>
         <label class="tog"><input type="checkbox" id="fundraiser"><span class="sw"></span><span><b>Fundraiser box</b><em>Your team keeps $5 a box.</em></span></label>
       </fieldset>
@@ -206,7 +303,8 @@
     <aside class="or-sum" aria-live="polite">
       <div class="sum-vis">
         <img class="sum-pack" src="img/pack.webp" alt="" width="714" height="1000">
-        <div class="sum-box" hidden><span class="sum-box-band"></span><b>HalfTime</b></div>
+        <canvas class="sum-box" width="900" height="838" hidden></canvas>
+        <p class="sum-cap" hidden>Team colors shown digitally</p>
       </div>
       <dl class="sum-lines"></dl>
       <div class="sum-total"><span>Total</span><b id="total">$1.49</b></div>
@@ -220,11 +318,26 @@
   </form>
 </section>
 
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <h2>Questions.</h2>
+  <div class="faq-list">
+    <details><summary>Which strength should I get?</summary><p>Start on green. Over an hour, hot out, or salt marks on your shirt: each yes moves you up one color.</p></details>
+    <details><summary>How many do I take?</summary><p>2 chews about every 30 minutes of hard play or work. One pack of 4 is about 1 hour.</p></details>
+    <details><summary>Do I still need water?</summary><p>Yes. Keep drinking water and eating normal meals. The chews help replace electrolytes lost in sweat.</p></details>
+    <details><summary>Who is red for?</summary><p>Heavy sweaters in the heat, ages 16+ only. Heavy sweaters can lose 950 to 1,900 mg of sodium an hour, so even red only covers part of it.</p></details>
+    <details><summary>Who shouldn't take it?</summary><p>It's for ages 14+ (red is 16+). If you have high blood pressure, ask a doctor first.</p></details>
+    <details><summary>Will it melt in my bag?</summary><p>No. The chews are made to be heat-resistant, so they hold up in a hot bag.</p></details>
+    <details><summary>Can my team get its own colors?</summary><p>Yes. Orders of 10+ boxes get packs printed in your team colors at the same price. Fundraiser boxes let your team keep $5 a box.</p></details>
+  </div>
+</section>
+
 </main>
 
 <footer class="foot">
   <div class="foot-wm">HalfTime<b>.</b></div>
   <p class="foot-claim">HalfTime Chews is a dietary supplement idea. It helps replace electrolytes lost in sweat. Chew 2 chews about every 30 minutes of hard play or work and keep drinking water.</p>
+  <p class="foot-src">Numbers: NFHS 2024-25, NCAA 2024-25, Health &amp; Fitness Association. Sweat: Precision Fuel &amp; Hydration. Prices and costs are team estimates.</p>
   <p class="foot-note">HalfTime Chews is a class project idea, not a real product. Product images are AI concepts.</p>
 </footer>
 
