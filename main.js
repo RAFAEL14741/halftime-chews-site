@@ -290,6 +290,21 @@
   };
   ScrollTrigger.create({ trigger: '.how', start: 'top top', end: 'bottom bottom', refreshPriority: -1, onUpdate: s => setClock(s.progress), onRefresh: s => setClock(s.progress) });
 
+  /* ---------- INSIDE THE CHEW: halves part, numbers count up in the seam ---------- */
+  const insRows = $$('.ins-row'), insCnt = $$('.ins-row .cnt');
+  if (!RM) {
+    const phone = () => innerWidth <= 720;
+    insRows.forEach(r => { r.style.opacity = 0; });
+    const it = gsap.timeline({ scrollTrigger: { trigger: '.inside', start: 'top top', end: 'bottom bottom', scrub: 0.6, refreshPriority: -1, invalidateOnRefresh: true } });
+    it.fromTo('.ins-l', { x: () => phone() ? '1.5vw' : '2.2vw', rotate: 0 }, { x: () => phone() ? '-8vw' : '-19vw', rotate: -7, scale: () => phone() ? 1 : 0.94, ease: 'power2.inOut', duration: 1 }, 0)
+      .fromTo('.ins-r', { x: () => phone() ? '-1.5vw' : '-2.2vw', rotate: 0 }, { x: () => phone() ? '8vw' : '19vw', rotate: 7, scale: () => phone() ? 1 : 0.94, ease: 'power2.inOut', duration: 1 }, 0)
+      .fromTo('.ins-glow', { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, ease: 'power1.out', duration: 0.7 }, 0.25)
+      .to({}, { duration: 0.35 });
+    insRows.forEach((r, i) => it.fromTo(r, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.18, ease: 'power2.out', immediateRender: false }, 0.45 + i * 0.09));
+    const cnt = { p: 0 };
+    it.fromTo(cnt, { p: 0 }, { p: 1, duration: 0.55, ease: 'power2.out', onUpdate: () => insCnt.forEach(el => { el.textContent = Math.round(+el.dataset.v * cnt.p); }) }, 0.45);
+  }
+
   /* ---------- STRENGTH PICKER + WHAT'S INSIDE ---------- */
   const S = [
     { name: 'Green · Light', short: 'Green', mg: 150, use: 'Practice and the gym. Ages 14+.', age: '14+', c: '#3DD68C' },

@@ -79,3 +79,8 @@ Hero strong (close to LMNT); after the hero it reads "nice dark template". Flavo
 - Rejected: scoreboard backdrop (noise), studio floor (flat), 3-tooth tear (looked crude).
 - Not done yet / ideas: put the logo on the site nav, the deck cover + footers, and the pack label (pack renders still use the AI serif "HalfTime Chews"); "inside the chew" moment using assets/flv_chew_split.png; slogan pick (options sent in chat: "Built for the second half." recommended, keep "Tear. Chew. Keep going." as the action line).
 - Tip: the local http.server dies between turns; start it with `setsid nohup python3 -m http.server 8765 &`.
+
+## CHAT 4 (Nov 10, night)
+- Logo on the site: nav = inline torn-chew mark (26px, tilts on hover) + live "HalfTime" text; footer = brand/logo-on-dark.svg (with ELECTROLYTE CHEWS tagline).
+- New "Inside the chew" section (#inside, between the 950 mg problem band and How it works): sticky 210vh (190 on phone). assets/flv_chew_split.png cut along the darkest seam per row into img/inside-l/-r.webp (alpha from brightness), halves pull apart + rotate on scroll, lime glow opens in the seam, Yellow pack numbers (250/75/12/20 mg, ~20 cal) count up between the halves (below them on phone). Footnote gives Green 150 / Red 500 sodium.
+- Still not done: logo on deck cover + footers (Browser 3, Apps Script, guarded fn), logo on the pack label (pack renders still show the AI serif), slogan pick ("Built for the second half." recommended), re-shoot slide/site.jpg only if Rafael wants the new section in it.
