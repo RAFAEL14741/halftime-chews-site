@@ -60,3 +60,5 @@ Hero strong (close to LMNT); after the hero it reads "nice dark template". Flavo
 - New assets: img/o-*.webp (fruit cutouts), img/box12.webp + box12-mask.png (t-map: out = px + t*1.2*(team - lime 185,233,19)), sources in assets/flv_*.png + box12.png.
 - QA scripts used: overlap check (objects vs copy/dock/nav at every scene hold, 5 viewports), overflow 320–430, RM check.
 - NEXT: step 10 (deck slide) — waiting on Rafael: slide position + speaker split. Step 11 (Mac Downloads cleanup) needs his OK.
+- v2.1 (Rafael: "love it but boring, add info + ordering early"): flavor scenes now have strength pills + "Add pack · $1.49" + "box of 12" link + toast + nav cart count (fills the checkout form). Punch: fruit bursts out of the chew (expo.out from chew center), shockwave ring per landing, letter-by-letter name rise, chew lands with back.out, mouse depth parallax on fruit (CSS vars --mx/--my × --d on .ob img).
+- Bug fixed: scene buttons unclickable because "active" was computed from tl.time() (scrub lags) → use ScrollTrigger progress × END.

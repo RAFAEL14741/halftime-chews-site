@@ -44,6 +44,18 @@
   const gHero = $('.g-hero'), gS = $$('.g-s'), scenes = $$('.scene'), dock = $('.dock'), dks = $$('.dk');
   const chews = $$('.chew'), objsBox = $('.objs');
   let tl = null;
+  const ring = $('.ring');
+  $$('.sc-name').forEach(h => {
+    const t = h.textContent; h.setAttribute('aria-label', t);
+    h.innerHTML = [...t].map(c => `<span class="ch" aria-hidden="true">${c}</span>`).join('');
+  });
+  // mouse depth parallax on the floating fruit (desktop)
+  if (!RM) inner.addEventListener('pointermove', e => {
+    if (e.pointerType !== 'mouse') return;
+    const r = inner.getBoundingClientRect();
+    inner.style.setProperty('--mx', ((e.clientX - r.left) / r.width - 0.5) * 2);
+    inner.style.setProperty('--my', ((e.clientY - r.top) / r.height - 0.5) * 2);
+  });
 
   // scene start times (timeline units; hero = 0 to ~0.6)
   const SC = [0.62, 1.16, 1.70], END = 2.24;
@@ -53,16 +65,16 @@
     d: [
       [['citrus-0', .87, .28, .22, 1.2, -12], ['citrus-1', .55, .74, .19, 1, 18], ['citrus-2', .89, .74, .17, .8, -20], ['citrus-3', .57, .24, .14, .6, 10], ['citrus-4', .74, .9, .1, .5, 30]],
       [['berry-0', .1, .28, .16, 1.1, -15], ['berry-2', .47, .25, .14, .8, 12], ['berry-4', .13, .8, .13, 1.25, 0], ['berry-1', .42, .8, .13, .6, 25], ['berry-3', .64, .2, .08, .45, -10], ['berry-5', .03, .52, .09, .5, 0], ['berry-6', .86, .9, .08, .4, 0]],
-      [['watermelon-0', .2, .36, .2, 1.15, -14], ['watermelon-1', .8, .34, .19, .9, 16], ['watermelon-2', .11, .78, .16, 1.25, 8], ['watermelon-3', .3, .62, .06, .7, 20], ['watermelon-4', .68, .64, .065, 1.05, -30], ['watermelon-5', .9, .72, .055, .55, 40], ['watermelon-6', .76, .87, .05, .45, 0], ['watermelon-1', .07, .15, .08, .4, -30]]
+      [['watermelon-0', .2, .5, .2, 1.15, -14], ['watermelon-1', .8, .48, .19, .9, 16], ['watermelon-2', .11, .78, .16, 1.25, 8], ['watermelon-3', .33, .72, .06, .7, 20], ['watermelon-4', .67, .76, .065, 1.05, -30], ['watermelon-5', .9, .72, .055, .55, 40], ['watermelon-6', .76, .87, .05, .45, 0], ['watermelon-1', .07, .15, .08, .4, -30]]
     ],
     p: [
-      [['citrus-0', .15, .5, .3, 1.1, -12], ['citrus-2', .86, .5, .26, .9, -20], ['citrus-1', .84, .8, .26, 1.2, 18], ['citrus-3', .15, .8, .22, .65, 10]],
-      [['berry-0', .13, .5, .24, 1.1, -15], ['berry-2', .86, .48, .22, .8, 12], ['berry-4', .85, .8, .18, 1.2, 0], ['berry-1', .16, .8, .2, .65, 25]],
-      [['watermelon-0', .15, .5, .28, 1.1, -14], ['watermelon-1', .86, .52, .26, .9, 16], ['watermelon-2', .83, .81, .26, 1.2, 8], ['watermelon-3', .18, .8, .09, .7, 20], ['watermelon-4', .6, .46, .07, .5, -30]]
+      [['citrus-0', .15, .57, .26, 1.1, -12], ['citrus-2', .86, .56, .24, .9, -20], ['citrus-1', .84, .8, .26, 1.2, 18], ['citrus-3', .15, .8, .22, .65, 10]],
+      [['berry-0', .13, .57, .22, 1.1, -15], ['berry-2', .87, .56, .2, .8, 12], ['berry-4', .85, .8, .18, 1.2, 0], ['berry-1', .16, .8, .2, .65, 25]],
+      [['watermelon-0', .15, .57, .25, 1.1, -14], ['watermelon-1', .86, .58, .24, .9, 16], ['watermelon-2', .83, .83, .24, 1.2, 8], ['watermelon-3', .18, .82, .09, .7, 20]]
     ]
   };
   // where the big chew sits in each scene: [x, y, size factor]
-  const BIG = { d: [[.69, .5, 1], [.3, .5, 1], [.5, .6, .86]], p: [[.5, .64, 1], [.5, .64, 1], [.5, .64, 1]] };
+  const BIG = { d: [[.69, .5, 1], [.3, .5, 1], [.5, .7, .7]], p: [[.5, .68, 1], [.5, .68, 1], [.5, .68, 1]] };
 
   function layout() {
     const W = inner.clientWidth, H = inner.clientHeight, phone = W < 820;
@@ -100,10 +112,10 @@
       el.appendChild(im);
       const size = s * (L.phone ? L.W : L.H);
       el.style.width = size + 'px';
-      el.style.zIndex = d > 1 ? 6 : 2;          // near objects pass in front of the chew, never over copy (placed away from it)
+      el.style.zIndex = d > 1 ? 6 : 2; el.style.setProperty('--d', d);          // near objects pass in front of the chew, never over copy (placed away from it)
       objsBox.appendChild(el);
       gsap.set(el, { left: x * L.W, top: y * L.H, xPercent: -50, yPercent: -50, rotation: r, opacity: 0 });
-      return { el, d, r };
+      return { el, d, r, ox: x * L.W, oy: y * L.H };
     }));
   }
 
@@ -128,6 +140,7 @@
     const slot = $$('.dk i').map(i => { const r = i.getBoundingClientRect(); return [r.left - ir.left + r.width / 2, r.top - ir.top + r.height / 2, r.width]; });
     const B = BIG[L.phone ? 'p' : 'd'];
     const toBig = (i, rot) => ({ x: B[i][0] * L.W - c, y: B[i][1] * L.H - c, scale: L.big * B[i][2] / L.cw, rotation: rot });
+    const cxy = i => [B[i][0] * L.W, B[i][1] * L.H];
     const toDock = i => ({ x: slot[i][0] - c, y: slot[i][1] - c, scale: (slot[i][2] * 0.92) / L.cw, rotation: 0 });
 
     chews.forEach(ch => gsap.set(ch, { x: mouthX - c, y: mouthY + L.h * 0.06 - c, scale: 0.35, opacity: 0, zIndex: 2 }));
@@ -137,10 +150,12 @@
       scrollTrigger: {
         trigger: stage, start: 'top top', end: () => '+=' + Math.round(L.H * (L.phone ? 1.9 : 2.0) * END),
         scrub: 0.9, pin: true, anticipatePin: 1, invalidateOnRefresh: false,
-        onUpdate: () => {
-          const t = tl.time(); let on = -1;
+        onUpdate: s => {
+          // use scroll progress, not tl.time(): the scrubbed time lags and the last onUpdate can fire before it catches up
+          const t = s.progress * END; let on = -1;
           if (t > SC[0] - 0.04) on = t < SC[1] - 0.05 ? 0 : t < SC[2] - 0.05 ? 1 : 2;
           dks.forEach((d, i) => d.classList.toggle('on', i === on));
+          scenes.forEach((s, i) => s.classList.toggle('active', i === on && t > SC[i] + 0.02));
           stage.classList.toggle('in-flavors', on >= 0);
         }
       }
@@ -171,7 +186,7 @@
       .to(dock, { opacity: 1, duration: 0.06 }, 0.56);
     // chew 1 grows into scene 1, chews 2 + 3 wait in the dock
     chews.forEach(ch => tl.set(ch, { zIndex: 5 }, 0.53));
-    tl.to(chews[0], { ...toBig(0, -10), duration: 0.14, ease: 'power3.inOut' }, 0.53)
+    tl.to(chews[0], { ...toBig(0, -10), duration: 0.14, ease: 'back.out(1.25)' }, 0.53)
       .to(chews[1], { ...toDock(1), duration: 0.13, ease: 'power3.inOut' }, 0.55)
       .to(chews[2], { ...toDock(2), duration: 0.13, ease: 'power3.inOut' }, 0.57);
 
@@ -179,24 +194,30 @@
     scenes.forEach((sc, i) => {
       const S = SC[i], next = SC[i + 1];
       tl.fromTo(gS[i], { opacity: 0 }, { opacity: 1, duration: 0.12, immediateRender: false }, S - 0.08)
-        .fromTo(sc, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.08, ease: 'power2.out', immediateRender: false }, S - 0.01);
+        .fromTo(sc, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.08, ease: 'power2.out', immediateRender: false }, S - 0.01)
+        .fromTo($$('.ch', sc), { yPercent: 70, opacity: 0, rotation: 8 }, { yPercent: 0, opacity: 1, rotation: 0, duration: 0.06, stagger: 0.008, ease: 'back.out(1.6)', immediateRender: false }, S - 0.01);
+      // shockwave ring where the chew lands
+      const [rx, ry] = cxy(i), rs = L.big * B[i][2] * 1.25;
+      tl.set(ring, { left: rx - rs / 2, top: ry - rs / 2, width: rs, height: rs, borderColor: sc.style.getPropertyValue('--c') }, S - 0.05)
+        .fromTo(ring, { scale: 0.55, opacity: 0.9 }, { scale: 1.9, opacity: 0, duration: 0.1, ease: 'power2.out', immediateRender: false }, S - 0.04);
       // the big chew turns slowly while the scene holds
       const hold = (next ?? END) - S;
       tl.to(chews[i], { rotation: 10, duration: hold - 0.06, ease: 'none' }, S + 0.02);
       // objects: rise in from below (near ones travel further), drift, then leave upward
       objs[i].forEach((o, k) => {
         const j = k * 0.012;
-        tl.fromTo(o.el, { y: L.H * 0.85 * o.d, opacity: 0, rotation: o.r - 25 * o.d },
-          { y: 0, opacity: o.d < 0.66 ? 0.75 : 1, rotation: o.r, duration: 0.13, ease: 'power2.out', immediateRender: false }, S - 0.07 + j)
+        const [bx, by] = cxy(i);
+        tl.fromTo(o.el, { x: bx - o.ox, y: by - o.oy, scale: 0.15, opacity: 0, rotation: o.r - 160 * o.d },
+          { x: 0, y: 0, scale: 1, opacity: o.d < 0.66 ? 0.75 : 1, rotation: o.r, duration: 0.11, ease: 'expo.out', immediateRender: false }, S - 0.04 + j * 0.4)
           .to(o.el, { y: -L.H * 0.07 * o.d, rotation: o.r + 8 * o.d, duration: hold - 0.12, ease: 'none' }, S + 0.06 + j);
-        if (next) tl.to(o.el, { y: -L.H * 0.95 * o.d, opacity: 0, duration: 0.12, ease: 'power2.in' }, next - 0.1 + j);
+        if (next) tl.to(o.el, { x: (o.ox - bx) * 0.6, y: -L.H * 0.95 * o.d, opacity: 0, duration: 0.12, ease: 'power2.in' }, next - 0.1 + j);
       });
       if (next) {
         tl.to(sc, { opacity: 0, y: -30, duration: 0.06, ease: 'power1.in' }, next - 0.09)
           .to(gS[i], { opacity: 0, duration: 0.12 }, next - 0.08)
           // swap: this chew goes back to its dock slot, the next one grows out of the dock
           .to(chews[i], { ...toDock(i), duration: 0.13, ease: 'power3.inOut' }, next - 0.1)
-          .to(chews[i + 1], { ...toBig(i + 1, -10), duration: 0.14, ease: 'power3.inOut' }, next - 0.08);
+          .to(chews[i + 1], { ...toBig(i + 1, -10), duration: 0.14, ease: 'back.out(1.25)' }, next - 0.08);
       }
     });
     tl.to({}, { duration: 0.04 }, END - 0.04);
@@ -360,4 +381,30 @@
     $('#done').hidden = false; const p = $('.place'); p.disabled = true; p.textContent = 'Order placed (demo)';
   });
   updateOrder(false);
+
+  /* ---------- BUY RIGHT IN THE FLAVOR SCENES ---------- */
+  const toast = $('.toast'), toastT = $('.toast-t'); let tt;
+  $$('.sc-buy').forEach(box => {
+    const pills = $$('.sp', box);
+    pills.forEach(p => p.addEventListener('click', () => pills.forEach(x => { const on = x === p; x.classList.toggle('on', on); x.setAttribute('aria-pressed', on); })));
+    $('.sc-add', box).addEventListener('click', e => {
+      const fl = box.dataset.flavor, lv = +$('.sp.on', box).dataset.s;
+      const same = form.size.value === 'single' && form.flavor.value === fl && +form.strength.value === lv && touched;
+      $('input[name=size][value=single]').checked = true;
+      $(`input[name=flavor][value="${fl}"]`).checked = true;
+      $(`input[name=strength][value="${lv}"]`).checked = true;
+      qty = same ? Math.min(99, qty + 1) : 1;
+      updateOrder(true);
+      const b = e.currentTarget; b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop');
+      toastT.textContent = `Added ${fl} · ${S[lv].short}${lv === 2 ? ' 16+' : ''} ×${qty} · ${money(PRICE.single * qty)}`;
+      toast.classList.add('on'); clearTimeout(tt); tt = setTimeout(() => toast.classList.remove('on'), 3600);
+    });
+  });
+  $$('.sc-box').forEach(a => a.addEventListener('click', () => {
+    const box = a.closest('.sc-buy'), lv = +$('.sp.on', box).dataset.s;
+    $('input[name=size][value=box12]').checked = true;
+    $(`input[name=flavor][value="${box.dataset.flavor}"]`).checked = true;
+    $(`input[name=strength][value="${lv}"]`).checked = true;
+    qty = 1; updateOrder(true);
+  }));
 })();

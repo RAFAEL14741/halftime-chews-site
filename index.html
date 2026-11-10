@@ -60,6 +60,7 @@
 
     <!-- floating flavor objects (placed by JS) -->
     <div class="objs" aria-hidden="true"></div>
+    <div class="ring" aria-hidden="true"></div>
 
     <!-- three flavor scenes on the same stage -->
     <div class="scenes" id="flavors">
@@ -67,21 +68,48 @@
         <p class="sc-k">Flavor idea we're testing</p>
         <h2 class="sc-name">Citrus.</h2>
         <p class="sc-line">Bright orange with a little zest.</p>
-        <p class="sc-meta">Same chew · all 3 strengths · 4 per pack</p>
+        <p class="sc-meta">4 soft chews · no water · won't melt in a hot bag</p>
+        <div class="sc-buy" data-flavor="Citrus">
+          <div class="sc-str" role="group" aria-label="Strength for Citrus">
+            <button type="button" class="sp on" data-s="0" aria-pressed="true" style="--s:#3DD68C">Green <em>150 mg</em></button>
+            <button type="button" class="sp" data-s="1" aria-pressed="false" style="--s:#FFD23F">Yellow <em>250 mg</em></button>
+            <button type="button" class="sp" data-s="2" aria-pressed="false" style="--s:#E5484D">Red <em>500 mg</em><span class="ag">16+</span></button>
+          </div>
+          <button type="button" class="btn sc-add">Add pack · $1.49</button>
+          <a class="sc-box" href="#order">or a box of 12 for $14.99</a>
+        </div>
         <img class="sc-rm" src="img/chew-citrus.webp" alt="Orange citrus chew" width="400" height="400">
       </article>
       <article class="scene s2" style="--c:#9D6BFF">
         <p class="sc-k">Flavor idea we're testing</p>
         <h2 class="sc-name">Berry.</h2>
         <p class="sc-line">Deep mixed berry.</p>
-        <p class="sc-meta">Same chew · all 3 strengths · 4 per pack</p>
+        <p class="sc-meta">4 soft chews · no water · won't melt in a hot bag</p>
+        <div class="sc-buy" data-flavor="Berry">
+          <div class="sc-str" role="group" aria-label="Strength for Berry">
+            <button type="button" class="sp on" data-s="0" aria-pressed="true" style="--s:#3DD68C">Green <em>150 mg</em></button>
+            <button type="button" class="sp" data-s="1" aria-pressed="false" style="--s:#FFD23F">Yellow <em>250 mg</em></button>
+            <button type="button" class="sp" data-s="2" aria-pressed="false" style="--s:#E5484D">Red <em>500 mg</em><span class="ag">16+</span></button>
+          </div>
+          <button type="button" class="btn sc-add">Add pack · $1.49</button>
+          <a class="sc-box" href="#order">or a box of 12 for $14.99</a>
+        </div>
         <img class="sc-rm" src="img/chew-berry.webp" alt="Violet berry chew" width="400" height="400">
       </article>
       <article class="scene s3" style="--c:#FF5FA2">
         <p class="sc-k">Flavor idea we're testing</p>
         <h2 class="sc-name">Watermelon.</h2>
         <p class="sc-line">Light, sweet watermelon.</p>
-        <p class="sc-meta">Same chew · all 3 strengths · 4 per pack</p>
+        <p class="sc-meta">4 soft chews · no water · won't melt in a hot bag</p>
+        <div class="sc-buy" data-flavor="Watermelon">
+          <div class="sc-str" role="group" aria-label="Strength for Watermelon">
+            <button type="button" class="sp on" data-s="0" aria-pressed="true" style="--s:#3DD68C">Green <em>150 mg</em></button>
+            <button type="button" class="sp" data-s="1" aria-pressed="false" style="--s:#FFD23F">Yellow <em>250 mg</em></button>
+            <button type="button" class="sp" data-s="2" aria-pressed="false" style="--s:#E5484D">Red <em>500 mg</em><span class="ag">16+</span></button>
+          </div>
+          <button type="button" class="btn sc-add">Add pack · $1.49</button>
+          <a class="sc-box" href="#order">or a box of 12 for $14.99</a>
+        </div>
         <img class="sc-rm" src="img/chew-watermelon.webp" alt="Pink watermelon chew" width="400" height="400">
       </article>
     </div>
@@ -340,6 +368,8 @@
   <p class="foot-src">Numbers: NFHS 2024-25, NCAA 2024-25, Health &amp; Fitness Association. Sweat: Precision Fuel &amp; Hydration. Prices and costs are team estimates.</p>
   <p class="foot-note">HalfTime Chews is a class project idea, not a real product. Product images are AI concepts.</p>
 </footer>
+
+<div class="toast" role="status" aria-live="polite"><span class="toast-t"></span><a href="#order">Checkout</a></div>
 
 <script src="js/lenis.min.js"></script>
 <script src="js/gsap.min.js"></script>
