@@ -378,9 +378,12 @@
     if (!hex || !boxMask) { bctx.putImageData(boxBase, 0, 0); return; }
     const k = [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16));
     const src = boxBase.data, out = bctx.createImageData(boxBase), o = out.data;
+    // logo ink (mask green channel) turns cream when the team color is dark
+    const dark = (0.2126 * k[0] + 0.7152 * k[1] + 0.0722 * k[2]) < 140, CR = [242, 238, 228];
     for (let p = 0; p < src.length; p += 4) {
-      const t = boxMask[p] / 255 * 1.2;
-      o[p] = src[p] + t * (k[0] - LIME[0]); o[p + 1] = src[p + 1] + t * (k[1] - LIME[1]); o[p + 2] = src[p + 2] + t * (k[2] - LIME[2]); o[p + 3] = src[p + 3];
+      const t = boxMask[p] / 255 * 1.2, a = dark ? boxMask[p + 1] / 255 : 0;
+      for (let c = 0; c < 3; c++) { const v = src[p + c] + t * (k[c] - LIME[c]); o[p + c] = v + a * (CR[c] * (src[p + c] / 40 + 0.55) - v); }
+      o[p + 3] = src[p + 3];
     }
     bctx.putImageData(out, 0, 0);
   }
