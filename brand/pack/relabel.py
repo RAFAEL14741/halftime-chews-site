@@ -36,8 +36,15 @@ def apply(src,dst,minA,texts,pick=None):
         textm=((inner==1)&(m==0)).astype(np.uint8)
         dd=max(3,int(size/40))
         clean=((m==1)&(cv2.dilate(textm,np.ones((2*dd+1,2*dd+1),np.uint8))==0)&(inner==1)).astype(np.float32)
+        lum=rgb.mean(2); mf=((m==1)&(inner==1)).astype(np.float32); bs=max(8.0,size/5)
+        loc=cv2.GaussianBlur(lum*mf,(0,0),bs)/np.maximum(cv2.GaussianBlur(mf,(0,0),bs),1e-4)
+        clean=clean*(lum>0.85*loc)
         sg=float(np.clip(size/30,3,14))
-        smooth=cv2.GaussianBlur(rgb*clean[...,None],(0,0),sg)/np.maximum(cv2.GaussianBlur(clean,(0,0),sg),1e-4)[...,None]
+        den=cv2.GaussianBlur(clean,(0,0),sg)
+        smooth=cv2.GaussianBlur(rgb*clean[...,None],(0,0),sg)/np.maximum(den,1e-4)[...,None]
+        den2=cv2.GaussianBlur(clean,(0,0),sg*4)
+        big=cv2.GaussianBlur(rgb*clean[...,None],(0,0),sg*4)/np.maximum(den2,1e-4)[...,None]
+        wgt=np.clip(den/0.15,0,1)[...,None]; smooth=smooth*wgt+big*(1-wgt)
         grain=(rgb-cv2.GaussianBlur(rgb,(0,0),1.5))*clean[...,None]
         near=(np.abs(rgb-smooth).max(2)<28).astype(np.float32)[...,None]
         base=smooth+grain*0.6*near
