@@ -70,3 +70,12 @@ Hero strong (close to LMNT); after the hero it reads "nice dark template". Flavo
 - Chew detail tags (.ctag): flavor name + one line next to each floating chew (desktop), names only on phone; clamped on screen; auto-hidden if it would touch the h1 (1024px). Falling salt specks (.bgx-dust) only on the right half.
 - Fixes from judge: top dark grade (glare behind nav), sub copy brighter, fact labels 13.5px, berry chew lower, phone watermelon chew inward, TEAR HERE label left of the line (hidden on phone).
 - Unused but saved: assets/flv_chew_split.png (+ _floor): macro of a lime chew torn in half, idea for an "inside the chew" moment.
+
+## WHAT CHAT 3 DID (Nov 10, evening) — start a fresh chat from here
+- Steps 10 + 11 done (deck slide 15 "Try it live.", Downloads cleanup).
+- v3 hero: night-field backdrop + chew detail tags (see "v3 HERO" above). Live.
+- Slide 15 image swapped to the v3 hero (Apps Script `swapSiteImg`, image.replace with a commit-SHA raw URL so GitHub's cache can't serve the old file).
+- LOGO: brand/ folder. Torn-chew mark (lime + cream halves, 2 uneven teeth) + "HalfTime" Inter Tight 800 + "ELECTROLYTE CHEWS". Blind judge beat "Half | Time" split (Canva-template look) and a half circle (= the generic contrast icon). favicon.svg is live on the site.
+- Rejected: scoreboard backdrop (noise), studio floor (flat), 3-tooth tear (looked crude).
+- Not done yet / ideas: put the logo on the site nav, the deck cover + footers, and the pack label (pack renders still use the AI serif "HalfTime Chews"); "inside the chew" moment using assets/flv_chew_split.png; slogan pick (options sent in chat: "Built for the second half." recommended, keep "Tear. Chew. Keep going." as the action line).
+- Tip: the local http.server dies between turns; start it with `setsid nohup python3 -m http.server 8765 &`.
