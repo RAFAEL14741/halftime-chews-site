@@ -43,7 +43,7 @@ h2{font-weight:800;font-size:var(--h2);line-height:.95;letter-spacing:-.045em}
 .stage-in{position:relative;height:100svh;min-height:560px;overflow:hidden;isolation:isolate}
 .glow{position:absolute;right:4%;top:6%;width:62vw;height:86vh;will-change:opacity;background:radial-gradient(closest-side,rgba(212,245,60,.15),rgba(212,245,60,0));pointer-events:none;z-index:0}
 .tear-line{position:absolute;left:0;right:0;height:0;border-top:1.5px dashed rgba(242,238,228,.26);z-index:1;pointer-events:none}
-.tear-line span{position:absolute;right:var(--pad);top:-24px}
+.tear-line span{position:absolute;left:0;top:-24px}
 .hero-copy{position:absolute;left:var(--pad);top:16vh;z-index:4;max-width:min(56vw,860px)}
 .hero-copy h1{font-weight:800;font-size:clamp(56px,10.2vw,164px);line-height:.86;letter-spacing:-.055em}
 .hero-copy h1 span{display:block}
@@ -415,3 +415,42 @@ html.rm .stp{opacity:1}
   .toast{font-size:14px;top:70px}
 }
 html.rm .ring{display:none}
+
+/* HERO BACKDROPS (v3) — pick with data-bg on .stage-in */
+.bgx{position:absolute;inset:0;z-index:0;pointer-events:none}
+.bgx>*{position:absolute;display:none}
+/* A: night field photo */
+[data-bg=a] .bgx-photo{display:block;inset:0;background:url(img/hero-field.webp) center/cover no-repeat}
+[data-bg=a] .bgx-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(11,11,10,.96) 0%,rgba(11,11,10,.82) 38%,rgba(11,11,10,.35) 70%,rgba(11,11,10,.5) 100%),linear-gradient(0deg,rgba(11,11,10,.92) 0%,rgba(11,11,10,0) 34%),linear-gradient(180deg,rgba(11,11,10,.85) 0%,rgba(11,11,10,.35) 14%,rgba(11,11,10,0) 26%)}
+/* B: halftime scoreboard + chalk lines */
+[data-bg=b] .bgx-board{display:flex;flex-direction:column;align-items:flex-end;right:var(--pad);top:9vh;color:var(--lime);opacity:.09;font-family:JB,monospace;line-height:.8;
+  -webkit-mask:radial-gradient(circle,#000 55%,transparent 60%) 0 0/7px 7px;mask:radial-gradient(circle,#000 55%,transparent 60%) 0 0/7px 7px}
+[data-bg=b] .bd-k{font-size:clamp(20px,2.4vw,38px);letter-spacing:.3em;margin-bottom:.4em}
+[data-bg=b] .bd-t{font-size:clamp(140px,24vw,400px);font-weight:500;letter-spacing:-.04em}
+[data-bg=b] .bgx-field{display:block;left:0;right:0;bottom:0;width:100%;height:42vh;color:rgba(242,238,228,.07);-webkit-mask:linear-gradient(0deg,#000,transparent);mask:linear-gradient(0deg,#000,transparent)}
+/* C: studio sweep, floor + reflection + falling salt */
+[data-bg=c] .bgx-floor{display:block;left:0;right:0;bottom:0;height:22vh;background:linear-gradient(180deg,#1a1a17 0%,#0e0e0c 100%);border-top:1px solid rgba(242,238,228,.06)}
+[data-bg=c] .bgx-floor::before{content:"";position:absolute;right:8%;width:46vw;top:-2px;height:60%;background:radial-gradient(closest-side,rgba(212,245,60,.18),transparent);filter:blur(6px)}
+[data-bg=c] .bgx-photo{display:block;inset:0;background:radial-gradient(60vw 90vh at 78% -10%,rgba(242,238,228,.10),transparent 60%),linear-gradient(180deg,#151513,#0B0B0A 78%)}
+[data-bg=c] .packw{-webkit-box-reflect:below -2px linear-gradient(transparent 72%,rgba(255,255,255,.16))}
+.bgx-dust{inset:0}
+[data-bg=c] .bgx-dust,[data-bg=a] .bgx-dust{display:block}
+.bgx-dust i{position:absolute;top:-4%;width:var(--s);height:var(--s);background:#F2EEE4;border-radius:1px;opacity:0;animation:salt var(--t) linear var(--dl) infinite}
+@keyframes salt{0%{transform:translate3d(0,0,0) rotate(0);opacity:0}10%{opacity:var(--o)}85%{opacity:var(--o)}100%{transform:translate3d(var(--dx),108vh,0) rotate(220deg);opacity:0}}
+
+/* chew detail tags */
+.ctags{position:absolute;inset:0;z-index:5;pointer-events:none;text-shadow:0 1px 12px rgba(0,0,0,.9)}
+.ctag{position:absolute;left:0;top:0;display:grid;grid-template-columns:auto;gap:2px;opacity:0;white-space:nowrap}
+.ctag i{display:block;width:22px;height:2px;border-radius:2px;margin-bottom:6px;background:var(--c)}
+.ctag.r i{margin-left:auto}
+.ctag b{font-family:JB,monospace;font-weight:500;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--c)}
+.ctag span{font-size:14px;color:var(--soft)}
+.ctag.r{text-align:right}
+@media (max-width:819px){.ctag span{display:none}.ctag b{font-size:11px}[data-bg=b] .bd-t{font-size:44vw}}
+@media (prefers-reduced-motion:reduce){.bgx-dust i{animation:none}}
+
+/* v3 bench fixes */
+.hero-copy .sub{color:var(--tx)}
+.hero-copy h1 span{word-spacing:.06em}
+.fact span{font-size:13.5px;color:var(--soft)}
+@media (max-width:819px){.tear-line span{display:none}}

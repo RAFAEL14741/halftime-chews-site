@@ -64,3 +64,9 @@ Hero strong (close to LMNT); after the hero it reads "nice dark template". Flavo
 - Not done / flag: agenda slide (if it lists parts) doesn't mention part 05; doc's "cream/green/black/gray" background note may be outdated after the premium rebuild.
 - v2.1 (Rafael: "love it but boring, add info + ordering early"): flavor scenes now have strength pills + "Add pack · $1.49" + "box of 12" link + toast + nav cart count (fills the checkout form). Punch: fruit bursts out of the chew (expo.out from chew center), shockwave ring per landing, letter-by-letter name rise, chew lands with back.out, mouse depth parallax on fruit (CSS vars --mx/--my × --d on .ob img).
 - Bug fixed: scene buttons unclickable because "active" was computed from tl.time() (scrub lags) → use ScrollTrigger progress × END.
+
+## v3 HERO (chat 3, Nov 10) — Rafael: "hero is boring, only a black screen; improve the gummies, more details"
+- 3 backdrops built (switch with ?bg=a|b|c): A night football field (Flow still assets/flv_field_b.png -> img/hero-field.webp, dark left/top grade), B faint dot-matrix "HALF 2 30:00" scoreboard + chalk lines, C studio floor + pack reflection. Blind judge: A wins looks/memory/stop-scrolling/trust; B = noise, C = flat. Default data-bg="a" on .stage-in.
+- Chew detail tags (.ctag): flavor name + one line next to each floating chew (desktop), names only on phone; clamped on screen; auto-hidden if it would touch the h1 (1024px). Falling salt specks (.bgx-dust) only on the right half.
+- Fixes from judge: top dark grade (glare behind nav), sub copy brighter, fact labels 13.5px, berry chew lower, phone watermelon chew inward, TEAR HERE label left of the line (hidden on phone).
+- Unused but saved: assets/flv_chew_split.png (+ _floor): macro of a lime chew torn in half, idea for an "inside the chew" moment.

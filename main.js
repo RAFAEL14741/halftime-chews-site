@@ -45,6 +45,13 @@
   const chews = $$('.chew'), objsBox = $('.objs');
   let tl = null;
   const ring = $('.ring');
+  // hero backdrop: ?bg=a|b|c for testing, default set on .stage-in
+  const bgq = new URLSearchParams(location.search).get('bg');
+  if (bgq) inner.dataset.bg = bgq;
+  const bgx = $('.bgx'), ctags = $$('.ctag');
+  { const d = $('.bgx-dust'); for (let i = 0; i < 26; i++) { const e = document.createElement('i'); const r = Math.random;
+      e.style.cssText = `left:${(48 + r() * 52).toFixed(1)}%;--s:${(1.5 + r() * 2.5).toFixed(1)}px;--t:${(7 + r() * 9).toFixed(1)}s;--dl:${(-r() * 16).toFixed(1)}s;--dx:${(-30 + r() * 60).toFixed(0)}px;--o:${(0.15 + r() * 0.4).toFixed(2)}`;
+      d.appendChild(e); } }
   $$('.sc-name').forEach(h => {
     const t = h.textContent; h.setAttribute('aria-label', t);
     h.innerHTML = [...t].map(c => `<span class="ch" aria-hidden="true">${c}</span>`).join('');
@@ -121,7 +128,7 @@
 
   function build() {
     if (tl) { tl.scrollTrigger && tl.scrollTrigger.kill(); tl.kill(); tl = null; }
-    gsap.set([strip, closed, torn, packw, heroCopy, heroInfo, tearLine, gHero, ...gS, ...scenes, dock, ...chews], { clearProps: 'transform,opacity,zIndex' });
+    gsap.set([strip, closed, torn, packw, heroCopy, heroInfo, tearLine, gHero, bgx, ...ctags, ...gS, ...scenes, dock, ...chews], { clearProps: 'transform,opacity,zIndex' });
     const L = layout();
     placeStatic(L);
     if (RM) return;
@@ -131,8 +138,8 @@
     const mouthY = L.y + L.h * TEAR + drop;
     const c = L.cw / 2;
     const floatPos = L.phone
-      ? [[mouthX - L.w * 0.62, mouthY - L.h * 0.2], [mouthX + L.w * 0.02, mouthY - L.h * 0.42], [mouthX + L.w * 0.3, mouthY - L.h * 0.14]]
-      : [[mouthX - L.w * 0.78, mouthY + L.h * 0.04], [mouthX - L.w * 0.14, mouthY - L.h * 0.19], [mouthX + L.w * 0.4, mouthY - L.h * 0.1]];
+      ? [[mouthX - L.w * 0.62, mouthY - L.h * 0.2], [mouthX + L.w * 0.02, mouthY - L.h * 0.42], [mouthX + L.w * 0.2, mouthY - L.h * 0.14]]
+      : [[mouthX - L.w * 0.78, mouthY + L.h * 0.04], [mouthX - L.w * 0.14, mouthY - L.h * 0.14], [mouthX + L.w * 0.4, mouthY - L.h * 0.1]];
     const rots = [-14, 9, 18];
 
     // dock slot centers (dock is static; only its opacity animates)
@@ -178,6 +185,26 @@
         .set(ch, { zIndex: 4 }, t0 + 0.05)
         .to(ch, { x: floatPos[i][0] - c, y: floatPos[i][1] - c, scale: 1, rotation: rots[i], duration: 0.1, ease: 'back.out(1.6)' }, t0 + 0.05);
     });
+
+    // DETAIL TAGS: each floating chew gets its flavor name + one line
+    // [dx, dy, side] from the chew center, in units of the chew half-size c
+    const TG = L.phone ? [[-1, 1.15, 'l'], [-1.1, -0.2, 'r'], [0, -1.7, 'c']] : [[-1.15, -0.3, 'r'], [-1.25, -0.35, 'r'], [-0.9, -1.75, 'l']];
+    ctags.forEach((tg, i) => {
+      const [dx, dy, side] = TG[i]; tg.classList.toggle('r', side === 'r');
+      // anchor, then keep the whole tag on screen (12px margin)
+      const w = tg.offsetWidth, ax = floatPos[i][0] + dx * c;
+      const lx = Math.min(Math.max(12, side === 'r' ? ax - w : side === 'c' ? ax - w / 2 : ax), L.W - 12 - w);
+      const ty = floatPos[i][1] + dy * c;
+      gsap.set(tg, { left: lx, top: ty, xPercent: 0, opacity: 0, y: 10 });
+      // never over the headline: if it would touch an h1 line, this tag stays hidden
+      const ir2 = inner.getBoundingClientRect(), th = tg.offsetHeight;
+      const hit = !L.phone && $$('.hero-copy h1 span').some(sp => { const g = document.createRange(); g.selectNodeContents(sp); const r = g.getBoundingClientRect();
+        return lx < r.right - ir2.left + 8 && lx + w > r.left - ir2.left - 8 && ty < r.bottom - ir2.top && ty + th > r.top - ir2.top; });
+      if (hit) return;
+      tl.to(tg, { opacity: 1, y: 0, duration: 0.05, ease: 'power2.out' }, 0.32 + i * 0.015)
+        .to(tg, { opacity: 0, y: -10, duration: 0.04, ease: 'power1.in' }, 0.46);
+    });
+    tl.to(bgx, { opacity: 0, duration: 0.1 }, 0.5);
 
     // HAND-OFF: hero leaves, pack drops away, citrus world comes in
     tl.to([heroCopy, heroInfo], { opacity: 0, y: -40, duration: 0.08, ease: 'power1.in' }, 0.48)

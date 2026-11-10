@@ -11,6 +11,7 @@
 <meta name="theme-color" content="#0B0B0A">
 <link rel="preload" href="fonts/inter-tight-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="img/pack.webp" as="image">
+<link rel="preload" href="img/hero-field.webp" as="image">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -31,7 +32,14 @@
 
 <!-- HERO + FLAVOR SCENES: one pinned stage -->
 <section class="stage" id="stage" aria-label="HalfTime Chews">
-  <div class="stage-in">
+  <div class="stage-in" data-bg="a">
+    <div class="bgx" aria-hidden="true">
+      <div class="bgx-photo"></div>
+      <div class="bgx-board"><span class="bd-k">HALF 2</span><span class="bd-t">30:00</span></div>
+      <svg class="bgx-field" viewBox="0 0 1600 400" preserveAspectRatio="none"><g fill="none" stroke="currentColor" stroke-width="2"><path d="M-400 400 L700 0"/><path d="M0 400 L760 0"/><path d="M400 400 L820 0"/><path d="M800 400 L880 0"/><path d="M1200 400 L940 0"/><path d="M1600 400 L1000 0"/><path d="M2000 400 L1060 0"/></g></svg>
+      <div class="bgx-floor"></div>
+      <div class="bgx-dust"></div>
+    </div>
     <div class="glow g-hero"></div>
     <div class="glow g-s" style="--c:#FF8A2A"></div>
     <div class="glow g-s" style="--c:#9D6BFF"></div>
@@ -120,6 +128,11 @@
       <div class="dk" style="--c:#FF5FA2"><i></i><span>Watermelon</span></div>
     </div>
 
+    <div class="ctags" aria-hidden="true">
+      <div class="ctag" style="--c:#FF8A2A"><i></i><b>Citrus</b><span>bright orange, a little zest</span></div>
+      <div class="ctag" style="--c:#9D6BFF"><i></i><b>Berry</b><span>deep mixed berry</span></div>
+      <div class="ctag" style="--c:#FF5FA2"><i></i><b>Watermelon</b><span>light and sweet</span></div>
+    </div>
     <div class="chew c1" aria-hidden="true"><img src="img/chew-citrus.webp" alt=""></div>
     <div class="chew c2" aria-hidden="true"><img src="img/chew-berry.webp" alt=""></div>
     <div class="chew c3" aria-hidden="true"><img src="img/chew-watermelon.webp" alt=""></div>
