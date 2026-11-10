@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HalfTime Chews: Tear. Chew. Keep going.</title>
+<meta name="description" content="Soft electrolyte chews for anyone who sweats. 4 chews per pack, 3 strengths, no water or mixing. A class project idea.">
+<meta property="og:title" content="HalfTime Chews">
+<meta property="og:description" content="Tear. Chew. Keep going. Soft electrolyte chews in 3 strengths. A class project idea.">
+<meta property="og:image" content="img/og.jpg">
+<meta name="theme-color" content="#0B0B0A">
+<link rel="preload" href="fonts/inter-tight-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="img/pack.webp" as="image">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav" aria-label="Main">
+  <a class="wm" href="#top">HalfTime<b>.</b></a>
+  <ul>
+    <li><a href="#flavors">Flavors</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#strength">Strength</a></li>
+    <li><a href="#where">Where to buy</a></li>
+  </ul>
+  <a class="nav-order" href="#order">Order <span class="cart-n" aria-live="polite">0</span></a>
+</nav>
+
+<main id="top">
+
+<!-- HERO + FLAVORS: one pinned stage -->
+<section class="stage" id="stage" aria-label="HalfTime Chews">
+  <div class="stage-in">
+    <div class="glow"></div>
+    <div class="tear-line" aria-hidden="true"><span>TEAR HERE</span></div>
+
+    <div class="hero-copy">
+      <h1><span>Tear.</span><span>Chew.</span><span>Keep going.</span></h1>
+      <p class="sub">Soft electrolyte chews for anyone who sweats. No water, no mixing, and they don't melt in a hot bag.</p>
+    </div>
+
+    <div class="packw" aria-hidden="true">
+      <img class="pk pk-closed" src="img/pack.webp" alt="" width="714" height="1000">
+      <img class="pk pk-torn" src="img/pack-torn.webp" alt="" width="714" height="1000">
+      <img class="pk pk-strip" src="img/pack-strip.webp" alt="" width="714" height="1000">
+    </div>
+
+    <div class="hero-info">
+      <div class="facts">
+        <div class="fact"><b>$1.49</b><span>per pack</span></div>
+        <div class="fact"><b>4</b><span>soft chews</span></div>
+        <div class="fact strengths"><b class="dots"><i class="g"></i><i class="y"></i><i class="r"></i></b><span>3 strengths, 150–500 mg sodium</span></div>
+      </div>
+      <a class="btn" href="#strength">Find your strength</a>
+    </div>
+
+    <p class="scroll-hint" aria-hidden="true">Scroll to tear it open</p>
+
+    <!-- flavor grid lives on the same stage; chews fly into it -->
+    <div class="flavors" id="flavors">
+      <div class="flv-head">
+        <h2>Three flavors we're testing.</h2>
+        <p>Same chew, same strengths. Tell us which one wins.</p>
+      </div>
+      <div class="flv-grid">
+        <article class="flv" style="--c:#FF8A2A"><div class="slot"></div><h3>Citrus</h3><p>Bright orange citrus.</p><span class="tag">Flavor idea</span></article>
+        <article class="flv" style="--c:#9D6BFF"><div class="slot"></div><h3>Berry</h3><p>Deep mixed berry.</p><span class="tag">Flavor idea</span></article>
+        <article class="flv" style="--c:#FF5FA2"><div class="slot"></div><h3>Watermelon</h3><p>Light, sweet watermelon.</p><span class="tag">Flavor idea</span></article>
+      </div>
+    </div>
+
+    <div class="chew c1" aria-hidden="true"><img src="img/chew-citrus.webp" alt=""></div>
+    <div class="chew c2" aria-hidden="true"><img src="img/chew-berry.webp" alt=""></div>
+    <div class="chew c3" aria-hidden="true"><img src="img/chew-watermelon.webp" alt=""></div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS: the 30:00 clock -->
+<section class="how" id="how">
+  <div class="how-in">
+    <div class="clock-wrap">
+      <div class="clock" aria-hidden="true"><span class="mm">30</span><span class="col">:</span><span class="ss">00</span></div>
+      <p class="clock-label"><span class="cl-a">Hard play or work</span><span class="cl-b">Time for 2 chews</span></p>
+    </div>
+    <div class="how-copy">
+      <h2>Two chews about every 30 minutes.</h2>
+      <p class="lead">Keep drinking water too. The chews help replace electrolytes lost in sweat.</p>
+      <ul class="how-list">
+        <li><b>No water, no mixing</b><span>Tear the pack and chew. Nothing to shake.</span></li>
+        <li><b>Heat-resistant</b><span>Made to handle the heat, so it won't melt in a hot bag.</span></li>
+        <li><b>4 soft chews a pack</b><span>Sold as a dietary supplement.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- STRENGTH PICKER -->
+<section class="strength" id="strength">
+  <div class="st-head">
+    <h2>Pick your strength.</h2>
+    <p>Not sure? Start on green. Every yes moves you up one color.</p>
+  </div>
+  <div class="st-body">
+    <div class="quiz" role="group" aria-label="Strength questions">
+      <button class="q" type="button" aria-pressed="false" data-q="long"><span class="q-box"></span><span class="q-t">Over an hour?</span></button>
+      <button class="q" type="button" aria-pressed="false" data-q="hot"><span class="q-box"></span><span class="q-t">Hot out?</span></button>
+      <button class="q" type="button" aria-pressed="false" data-q="salt"><span class="q-box"></span><span class="q-t">Salt marks on your shirt?</span></button>
+      <p class="q-note">Tap the ones that are true for you.</p>
+    </div>
+    <div class="result" aria-live="polite">
+      <div class="res-pack">
+        <img src="img/pack.webp" alt="HalfTime Chews pack" width="714" height="1000">
+        <div class="res-band"></div>
+      </div>
+      <div class="res-copy">
+        <p class="res-k">Your strength</p>
+        <h3 class="res-name">Green · Light</h3>
+        <p class="res-mg"><b>150 mg</b> sodium</p>
+        <p class="res-use">Practice and the gym. Ages 14+.</p>
+        <p class="res-extra"></p>
+        <a class="btn res-btn" href="#order">Order Green</a>
+      </div>
+    </div>
+  </div>
+  <div class="lineup">
+    <button class="lu" type="button" data-s="0" style="--s:#3DD68C"><b>Green · Light</b><span>150 mg sodium</span><em>Practice, gym · 14+</em></button>
+    <button class="lu" type="button" data-s="1" style="--s:#FFD23F"><b>Yellow · Hard</b><span>250 mg sodium</span><em>Games, long runs · 14+</em></button>
+    <button class="lu" type="button" data-s="2" style="--s:#E5484D"><b>Red · Extreme</b><span>500 mg sodium</span><em>Heat, long shifts · 16+ only</em></button>
+  </div>
+</section>
+
+<!-- WHERE WE SELL -->
+<section class="where" id="where">
+  <div class="wh-head">
+    <h2>For anyone who sweats.</h2>
+    <p>We sell where people already are.</p>
+  </div>
+  <div class="wh-rows">
+    <article class="wh">
+      <figure><img src="img/ctx-athlete.webp" alt="A soccer player on the bench at night, holding a HalfTime pack" loading="lazy" width="1400" height="781"></figure>
+      <div class="wh-t"><h3>Teams</h3><p>High school: team orders and fundraisers. College and club: campus shops.</p></div>
+    </article>
+    <article class="wh">
+      <figure><img src="img/ctx-gym.webp" alt="A gym bag on a bench with a HalfTime pack, someone tying their shoes behind it" loading="lazy" width="1400" height="781"></figure>
+      <div class="wh-t"><h3>Gyms and runners</h3><p>Gym front desks, run shops and race expos.</p></div>
+    </article>
+    <article class="wh">
+      <figure><img src="img/ctx-worker.webp" alt="A construction worker taking a break on a stack of lumber" loading="lazy" width="1400" height="781"></figure>
+      <div class="wh-t"><h3>Work crews</h3><p>Through safety managers, for crews working in the heat.</p></div>
+    </article>
+  </div>
+  <p class="wh-online">Everyone else: right here on our site and on Amazon.</p>
+</section>
+
+<!-- MOCK CHECKOUT -->
+<section class="order" id="order">
+  <div class="or-head">
+    <h2>Build your order.</h2>
+    <p>Class demo. Nothing here charges a card.</p>
+  </div>
+  <form class="or-grid" id="orderForm" novalidate>
+    <div class="or-opts">
+      <fieldset>
+        <legend>Size</legend>
+        <div class="chips" data-group="size">
+          <label><input type="radio" name="size" value="single" checked><span><b>Single pack</b><em>4 chews · $1.49</em></span></label>
+          <label><input type="radio" name="size" value="box12"><span><b>Box of 12</b><em>12 packs · $14.99</em></span></label>
+          <label><input type="radio" name="size" value="team48"><span><b>Team box of 48</b><em>48 packs · $49</em></span></label>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Strength</legend>
+        <div class="chips three" data-group="strength">
+          <label style="--s:#3DD68C"><input type="radio" name="strength" value="0" checked><span><b>Green</b><em>150 mg</em></span></label>
+          <label style="--s:#FFD23F"><input type="radio" name="strength" value="1"><span><b>Yellow</b><em>250 mg</em></span></label>
+          <label style="--s:#E5484D"><input type="radio" name="strength" value="2"><span><b>Red</b><em>500 mg · 16+</em></span></label>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Flavor</legend>
+        <div class="chips three" data-group="flavor">
+          <label style="--s:#FF8A2A"><input type="radio" name="flavor" value="Citrus" checked><span><b>Citrus</b></span></label>
+          <label style="--s:#9D6BFF"><input type="radio" name="flavor" value="Berry"><span><b>Berry</b></span></label>
+          <label style="--s:#FF5FA2"><input type="radio" name="flavor" value="Watermelon"><span><b>Watermelon</b></span></label>
+        </div>
+      </fieldset>
+      <fieldset class="qty-f">
+        <legend>Quantity</legend>
+        <div class="qty"><button type="button" class="qb" data-d="-1" aria-label="One less">−</button><output id="qty">1</output><button type="button" class="qb" data-d="1" aria-label="One more">+</button></div>
+      </fieldset>
+      <fieldset class="team-f">
+        <legend>For a team</legend>
+        <label class="tog"><input type="checkbox" id="teamColors"><span class="sw"></span><span><b>Team colors</b><em>On orders of 10+ boxes. Same price.</em></span></label>
+        <div class="colors" id="colorPick" hidden>
+          <button type="button" class="cc" style="--k:#1E3A8A" data-n="Navy" aria-label="Navy"></button>
+          <button type="button" class="cc" style="--k:#2563EB" data-n="Royal blue" aria-label="Royal blue"></button>
+          <button type="button" class="cc" style="--k:#7F1D1D" data-n="Maroon" aria-label="Maroon"></button>
+          <button type="button" class="cc" style="--k:#166534" data-n="Forest" aria-label="Forest"></button>
+          <button type="button" class="cc" style="--k:#C2410C" data-n="Burnt orange" aria-label="Burnt orange"></button>
+          <button type="button" class="cc" style="--k:#F2EEE4" data-n="White" aria-label="White"></button>
+        </div>
+        <label class="tog"><input type="checkbox" id="fundraiser"><span class="sw"></span><span><b>Fundraiser box</b><em>Your team keeps $5 a box.</em></span></label>
+      </fieldset>
+    </div>
+
+    <aside class="or-sum" aria-live="polite">
+      <div class="sum-vis">
+        <img class="sum-pack" src="img/pack.webp" alt="" width="714" height="1000">
+        <div class="sum-box" hidden><span class="sum-box-band"></span><b>HalfTime</b></div>
+      </div>
+      <dl class="sum-lines"></dl>
+      <div class="sum-total"><span>Total</span><b id="total">$1.49</b></div>
+      <p class="sum-note" id="sumNote"></p>
+      <button class="btn place" type="submit">Place order</button>
+      <div class="done" id="done" hidden>
+        <b>Class demo: no real payment.</b>
+        <p>Nothing was charged. Thanks for testing HalfTime Chews.</p>
+      </div>
+    </aside>
+  </form>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="foot-wm">HalfTime<b>.</b></div>
+  <p class="foot-claim">HalfTime Chews is a dietary supplement idea. It helps replace electrolytes lost in sweat. Chew 2 chews about every 30 minutes of hard play or work and keep drinking water.</p>
+  <p class="foot-note">HalfTime Chews is a class project idea, not a real product. Product images are AI concepts.</p>
+</footer>
+
+<script src="js/lenis.min.js"></script>
+<script src="js/gsap.min.js"></script>
+<script src="js/ScrollTrigger.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
