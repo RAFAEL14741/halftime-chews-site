@@ -32,7 +32,8 @@ h2{font-weight:800;font-size:var(--h2);line-height:.95;letter-spacing:-.045em}
 .wm{font-weight:800;font-size:21px;letter-spacing:-.035em;text-decoration:none;display:flex;align-items:center;gap:9px;line-height:1}
 .wm-mark{width:26px;height:26px;flex:none;transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
 .wm:hover .wm-mark{transform:rotate(-8deg) scale(1.06)}
-.foot-logo{width:220px;height:auto;margin-left:-8px}
+.foot-logo{width:min(340px,80vw);height:auto;margin-left:-8px}
+@media (max-width:520px){.foot-logo{margin-left:-6px}}
 .wm b,.foot-wm b{color:var(--lime)}
 .nav ul{display:flex;gap:30px;list-style:none;font-size:15px}
 .nav ul a{text-decoration:none;color:var(--soft)}
