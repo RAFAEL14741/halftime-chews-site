@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HalfTime Chews | Built for the second half</title>
+<meta name="description" content="Electrolyte chews in 3 strengths. Tear, chew, keep going. A class project concept.">
+<meta name="theme-color" content="#0B0B0A">
+<style>
+@font-face{font-family:IT;src:url(../fonts/inter-tight-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:IT;src:url(../fonts/inter-tight-latin-500-normal.woff2) format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:IT;src:url(../fonts/inter-tight-latin-600-normal.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:IT;src:url(../fonts/inter-tight-latin-800-normal.woff2) format("woff2");font-weight:800;font-display:swap}
+@font-face{font-family:JB;src:url(../fonts/jetbrains-mono-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:JB;src:url(../fonts/jetbrains-mono-latin-500-normal.woff2) format("woff2");font-weight:500;font-display:swap}
+
+:root{
+  --tx:#F2EEE4;--soft:#CFCBC0;--mu:#9E9B90;--lime:#D4F53C;--g:#3DD68C;--y:#FFD23F;--r:#E5484D;
+  --line:rgba(242,238,228,.16);--ink:#0B0B0A;
+  --in:#0e6b46;--mid:#06321f;--out:#010a06;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{background:#010a06;scroll-behavior:auto}
+body{color:var(--tx);font-family:IT,system-ui,sans-serif;min-height:820vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--lime);outline-offset:3px}
+
+#bg{position:fixed;inset:0;z-index:0;background:radial-gradient(circle at 50% 46%,var(--in) 0%,var(--mid) 52%,var(--out) 100%)}
+#vig{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse at 50% 50%,transparent 45%,rgba(0,0,0,.42) 100%)}
+#bubbles{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bub{position:absolute;bottom:-40px;border-radius:50%;border:1px solid rgba(212,245,60,.55);background:radial-gradient(circle at 30% 28%,rgba(255,255,255,.5),rgba(212,245,60,.14) 55%,transparent 72%);animation:rise linear forwards}
+@keyframes rise{0%{transform:translate(0,0);opacity:0}12%{opacity:.8}88%{opacity:.8}100%{transform:translate(28px,-112vh);opacity:0}}
+#gl{position:fixed;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+
+/* header */
+.header{position:fixed;top:0;left:0;width:100%;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:1.5rem 4%}
+.logo img{display:block;height:2.2rem;width:auto}
+.nav{display:flex;gap:.35rem;padding:.35rem;border-radius:100px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.nav a{font-size:.85rem;font-weight:500;color:var(--soft);padding:.5rem 1.1rem;border-radius:100px;transition:background .3s,color .3s;cursor:pointer}
+.nav a:hover,.nav a.on{background:var(--lime);color:var(--ink)}
+.shop{background:rgba(0,0,0,.5);padding:.85rem 1.8rem;border-radius:100px;font-weight:600;font-size:.85rem;transition:background .3s,transform .3s}
+.shop:hover{background:rgba(0,0,0,.72);transform:translateY(-2px)}
+
+/* sections */
+.sec{position:fixed;inset:0;z-index:5;pointer-events:none;visibility:hidden;opacity:0}
+.sec .hit{pointer-events:auto}
+.packslot{position:absolute;left:50%;transform:translateX(-50%);aspect-ratio:2.9/4.3;pointer-events:none}
+.slot{position:absolute;pointer-events:none}
+.big{font-weight:800;letter-spacing:-.045em;line-height:.86}
+.mono{font-family:JB,monospace;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase}
+
+/* hero */
+.hero .packslot{top:50%;height:min(66vh,62vw);transform:translate(-50%,-46%)}
+.hero .left{position:absolute;left:4%;top:0;bottom:0;display:flex;flex-direction:column;gap:1.5rem;padding:6.5rem 0 2.2rem}
+.main-title{font-size:clamp(4.4rem,10.4vw,11.5rem)}
+.main-title .m{display:none}
+.desc{color:var(--soft);font-size:1.05rem;line-height:1.55;max-width:23rem}
+.primary{display:flex;align-items:center;gap:1.5rem;width:fit-content;background:rgba(0,0,0,.5);padding:.4rem .4rem .4rem 1.5rem;border-radius:100px;font-weight:700;transition:background .3s,transform .3s}
+.primary:hover{background:rgba(0,0,0,.72);transform:translateY(-3px)}
+.plus{display:grid;place-items:center;width:2.4rem;height:2.4rem;border-radius:50%;background:var(--lime);color:var(--ink);font-size:1.4rem;font-weight:800;line-height:1;padding-bottom:2px}
+.facts{margin-top:auto;display:flex;align-items:center;gap:1rem}
+.facts .ic{width:3rem;height:3rem;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.05);display:grid;place-items:center}
+.facts .ic i{width:1.15rem;height:1.15rem;border-radius:.4rem;background:var(--lime);transform:rotate(-10deg)}
+.facts b{display:block;font-weight:600;font-size:.88rem}
+.facts span{color:var(--mu);font-size:.7rem;letter-spacing:.1em}
+.hero .right{position:absolute;right:4%;top:0;bottom:0;width:min(30rem,36vw);display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end;text-align:right;padding:6.5rem 0 2.2rem}
+.cards{display:flex;gap:.9rem;padding-top:1.8rem}
+.card{position:relative;width:8.2rem;padding:2.6rem .8rem .9rem;border-radius:26px;border:1px solid var(--line);background:rgba(255,255,255,.05);text-align:center;cursor:pointer;transition:border-color .3s,background .3s}
+.card:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.4)}
+.card.on{border-color:var(--lime)}
+.chip{position:absolute;left:50%;top:-1.6rem;width:3.4rem;height:3.4rem;margin-left:-1.7rem;border-radius:1.05rem;transform:rotate(-8deg);transition:transform .5s cubic-bezier(.34,1.56,.64,1);box-shadow:0 14px 22px rgba(0,0,0,.45),inset 0 -6px 10px rgba(0,0,0,.25),inset 0 4px 8px rgba(255,255,255,.35);pointer-events:none}
+.chip.g{background:linear-gradient(145deg,#6cf0b2,#26a866)}
+.chip.y{background:linear-gradient(145deg,#ffe27a,#e1a710)}
+.chip.r{background:linear-gradient(145deg,#ff7d82,#c32a31)}
+.card:hover .chip{transform:translateY(-.5rem) rotate(-14deg) scale(1.12)}
+.card b{display:block;font-size:.88rem;font-weight:600}
+.card span{display:block;font-size:.72rem;color:var(--mu);margin-top:.15rem}
+.side-title{font-size:clamp(4.4rem,10.4vw,11.5rem);color:var(--lime)}
+
+/* strengths */
+.s2 .packslot{top:19vh;height:35vh}
+.sec-title{position:absolute;left:4%;top:6.2rem;font-size:clamp(2.8rem,6vw,6.2rem)}
+.note{position:absolute;right:4%;top:6.9rem;max-width:19rem;text-align:right;color:var(--soft);font-size:.98rem;line-height:1.5}
+.note b{color:var(--lime);font-weight:600}
+.row3{position:absolute;left:50%;transform:translateX(-50%);bottom:4.5vh;width:min(70rem,92vw);display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.str{position:relative;padding:2.1rem 1.4rem 1.2rem;border-radius:22px;border:1px solid var(--line);background:rgba(3,10,6,.4);cursor:pointer;transition:border-color .3s,background .3s}
+.str:hover,.str.on{background:rgba(3,10,6,.62)}
+.str .slot{left:50%;top:0;width:3.8rem;height:3.8rem;transform:translate(-50%,-88%)}
+.str .tag{font-family:JB,monospace;font-size:.72rem;letter-spacing:.08em}
+.str .num{font-size:clamp(3rem,5vw,5rem);font-weight:800;letter-spacing:-.05em;line-height:.95;margin:.35rem 0 .1rem}
+.str .num small{font-size:.8rem;font-weight:500;letter-spacing:0;color:var(--mu);margin-left:.4rem}
+.str h4{font-size:1.15rem;font-weight:600;margin:.5rem 0 .2rem}
+.str p{color:var(--soft);font-size:.86rem;line-height:1.45}
+.str .age{font-family:JB,monospace;font-size:.7rem;color:var(--mu);letter-spacing:.06em;margin-top:.55rem;text-transform:uppercase}
+.t-g{color:var(--g)}.t-y{color:var(--y)}.t-r{color:var(--r)}
+.str.g.on{border-color:var(--g)}.str.y.on{border-color:var(--y)}.str.r.on{border-color:var(--r)}
+
+/* how */
+.s3 .packslot{top:15vh;height:62vh}
+.how{position:absolute;max-width:21rem}
+.how h3{font-size:clamp(3rem,5.4vw,5.6rem);font-weight:800;letter-spacing:-.045em;line-height:.9}
+.how p{color:var(--soft);margin-top:.7rem;font-size:1rem;line-height:1.5}
+.how .slot{width:4.2rem;height:4.2rem}
+.h1{left:max(9rem,10%);top:21vh}.h1 .slot{left:-5.6rem;top:.4rem}
+.h2{right:max(9rem,10%);top:43vh;text-align:right}.h2 .slot{right:-5.6rem;top:.4rem}
+.h3{left:max(9rem,10%);top:66vh}.h3 h3{color:var(--lime)}.h3 .slot{left:-5.6rem;top:.4rem}
+
+/* who */
+.s4 .packslot{top:18vh;height:33vh}
+.cols{position:absolute;left:50%;transform:translateX(-50%);bottom:4.5vh;width:min(70rem,92vw);display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.col{position:relative;padding:2.1rem 1.4rem 1.3rem;border-radius:22px;border:1px solid var(--line);background:rgba(3,10,6,.4)}
+.col .slot{left:50%;top:0;width:3.8rem;height:3.8rem;transform:translate(-50%,-88%)}
+.col .num{font-size:clamp(3rem,5vw,5rem);font-weight:800;letter-spacing:-.05em;line-height:.95;color:var(--lime)}
+.col h4{font-size:1.15rem;font-weight:600;margin:.55rem 0 .25rem}
+.col p{color:var(--soft);font-size:.88rem;line-height:1.45}
+.col q{display:block;margin-top:.7rem;font-family:JB,monospace;font-size:.72rem;letter-spacing:.04em;color:var(--mu);quotes:none;text-transform:uppercase}
+
+/* buy */
+.s5 .packslot{top:17vh;height:34vh}
+.price{position:relative;padding:2.1rem 1.4rem 1.2rem;border-radius:22px;border:1px solid var(--line);background:rgba(3,10,6,.4)}
+.price.top{border-color:var(--lime)}
+.price .slot{left:50%;top:0;width:3.8rem;height:3.8rem;transform:translate(-50%,-88%)}
+.price .slot.x{width:3rem;height:3rem}
+.price .slot.xl{left:18%}.price .slot.xr{left:82%}
+.price .amt{font-size:clamp(3rem,5vw,5rem);font-weight:800;letter-spacing:-.05em;line-height:.95}
+.price.top .amt{color:var(--lime)}
+.price h4{font-size:1.15rem;font-weight:600;margin:.5rem 0 .2rem}
+.price p{color:var(--soft);font-size:.88rem;line-height:1.45}
+.price .mono{color:var(--mu);margin-top:.5rem}
+.s5 .row3{bottom:10vh}
+.buyrow{position:absolute;left:50%;transform:translateX(-50%);bottom:1.4vh;display:flex;align-items:center;gap:1.4rem;width:min(70rem,92vw);justify-content:space-between}
+.buyrow small{color:var(--mu);font-size:.72rem;line-height:1.4;max-width:30rem}
+
+@media (max-height:780px) and (min-width:821px){
+  .str p.x,.col p.x{display:none}
+  .row3,.cols{bottom:3vh}
+}
+
+/* phone */
+@media (max-width:820px){
+  .header{padding:1rem 5%}.nav{display:none}.logo img{height:1.8rem}.shop{padding:.7rem 1.2rem}
+  .hero .packslot{top:60%;height:31vh}
+  .hero .left{left:5%;right:5%;padding:5.4rem 0 1.2rem;gap:1rem}
+  .main-title{font-size:clamp(2.8rem,14vw,4.2rem)}.main-title .m{display:inline;color:var(--lime)}
+  .desc{font-size:.92rem;max-width:18rem}
+  .facts{display:none}
+  .primary{margin-top:auto}
+  .hero .right{left:5%;right:5%;width:auto;top:auto;bottom:5.6rem;padding:0;align-items:stretch}
+  .side-title{display:none}
+  .cards{justify-content:space-between;gap:.5rem;padding-top:1.7rem}
+  .card{flex:1;width:auto;padding:2.5rem .3rem .7rem;border-radius:20px}
+  .card b{font-size:.8rem}
+  .sec-title{top:5rem;left:5%;font-size:clamp(2.4rem,11vw,3.4rem)}
+  .note{display:none}
+  .s2 .packslot{top:20vh;height:26vh}
+  .row3,.cols{width:90vw;bottom:2.2vh;grid-template-columns:1fr;gap:.55rem}
+  .str,.col,.price{padding:.65rem .9rem .65rem 4.6rem;border-radius:16px;min-height:4.4rem}
+  .str .slot,.col .slot{left:1.3rem;top:50%;width:2.8rem;height:2.8rem;transform:translateY(-50%)}
+  .price .slot{left:1.3rem;top:50%;width:2.8rem;height:2.8rem;transform:translateY(-50%)}
+  .price .slot.x{display:none}
+  .str .num,.col .num,.price .amt{font-size:2.1rem;display:inline-block;margin:0}
+  .str .num small{font-size:.65rem}
+  .str h4,.col h4,.price h4{font-size:.92rem;margin:.1rem 0}
+  .str p,.col p,.price p,.str .age,.col q,.price .mono{display:none}
+  .str .tag{display:inline-block;margin-right:.6rem}
+  .s3 .packslot{top:30vh;height:36vh}
+  .how{max-width:68%}
+  .how h3{font-size:clamp(2.6rem,13vw,3.6rem)}.how p{font-size:.88rem}
+  .h1{left:5.4rem;top:11vh}.h1 .slot,.h3 .slot{left:-4.4rem;width:3.4rem;height:3.4rem}
+  .h2{right:5.4rem;top:68vh}.h2 .slot{right:-4.4rem;width:3.4rem;height:3.4rem}
+  .h3{left:5.4rem;top:82vh}
+  .s4 .packslot{top:21vh;height:25vh}
+  .s5 .packslot{top:19vh;height:25vh}
+  .buyrow{flex-direction:column;align-items:stretch;gap:.5rem;bottom:1.2vh}
+  .buyrow small{display:none}.buyrow .primary{margin:0 auto}
+  .price.top{order:0}
+  .s5 .row3{bottom:8.5vh}
+}
+@media (prefers-reduced-motion:reduce){.bub{display:none}}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
+</head>
+<body>
+<div id="bg"></div><div id="vig"></div><div id="bubbles"></div>
+<canvas id="gl" aria-hidden="true"></canvas>
+
+<header class="header">
+  <a class="logo" href="#" aria-label="HalfTime Chews"><img src="../brand/logo-on-dark.svg" alt="HalfTime Electrolyte Chews"></a>
+  <nav class="nav" aria-label="Sections">
+    <a data-go="0" class="on">Home</a><a data-go=".34">Strengths</a><a data-go=".55">How it works</a><a data-go=".745">Who it's for</a><a data-go="1">Buy</a>
+  </nav>
+  <a class="shop" href="../#order">Shop now</a>
+</header>
+
+<!-- HERO -->
+<main class="sec hero" id="s1">
+  <div class="packslot" data-pack="hero"></div>
+  <div class="left">
+    <h1 class="main-title big">Tear.<br>Chew.<span class="m"><br>Keep going.</span></h1>
+    <p class="desc">Electrolyte chews in 3 strengths. No water, no mixing, nothing to carry or keep cold.</p>
+    <a class="primary hit" href="../#order">Shop now<span class="plus">+</span></a>
+    <div class="facts"><div class="ic"><i></i></div><div><b>From $1.49 a pack</b><span>4 CHEWS · HEAT-RESISTANT</span></div></div>
+  </div>
+  <div class="right">
+    <div class="cards hit" role="group" aria-label="Pick a strength">
+      <button class="card on" data-f="green"><i class="chip g"></i><b>Green · Light</b><span>150 mg</span></button>
+      <button class="card" data-f="yellow"><i class="chip y"></i><b>Yellow · Hard</b><span>250 mg</span></button>
+      <button class="card" data-f="red"><i class="chip r"></i><b>Red · Extreme</b><span>500 mg · 16+</span></button>
+    </div>
+    <h2 class="side-title big">Keep<br>going.</h2>
+  </div>
+</main>
+
+<!-- STRENGTHS -->
+<section class="sec s2" id="s2">
+  <div class="packslot" data-pack="s2"></div>
+  <h2 class="sec-title big">Pick your<br>strength.</h2>
+  <p class="note">One pack is about 1 hour of play: 2 chews every 30 minutes. <b>Not sure? Start on green.</b></p>
+  <div class="row3">
+    <div class="str g hit" data-f="green" tabindex="0"><div class="slot" data-slot="s2-0"></div>
+      <div class="tag t-g">GREEN · LIGHT</div><div class="num">150<small>mg sodium</small></div>
+      <h4>Practice + gym.</h4><p class="x">A lighter dose for practice and the gym.</p><div class="age">Ages 14+</div></div>
+    <div class="str y hit" data-f="yellow" tabindex="0"><div class="slot" data-slot="s2-1"></div>
+      <div class="tag t-y">YELLOW · HARD</div><div class="num">250<small>mg sodium</small></div>
+      <h4>Game day + long runs.</h4><p class="x">Plus 75 mg potassium, 12 mg magnesium, 20 mg calcium.</p><div class="age">Ages 14+</div></div>
+    <div class="str r hit" data-f="red" tabindex="0"><div class="slot" data-slot="s2-2"></div>
+      <div class="tag t-r">RED · EXTREME</div><div class="num">500<small>mg sodium</small></div>
+      <h4>Heat + long shifts.</h4><p class="x">Double the sodium of yellow, for salty sweaters.</p><div class="age">Ages 16+ only</div></div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="sec s3" id="s3">
+  <div class="packslot" data-pack="s3"></div>
+  <div class="how h1"><div class="slot" data-slot="s3-0"></div><h3>Tear.</h3><p>Pick green, yellow or red and rip it open.</p></div>
+  <div class="how h2"><div class="slot" data-slot="s3-1"></div><h3>Chew.</h3><p>Take 2 about every 30 minutes of hard play or work.</p></div>
+  <div class="how h3"><div class="slot" data-slot="s3-2"></div><h3>Keep going.</h3><p>Helps replace electrolytes lost in sweat. Keep drinking water too.</p></div>
+</section>
+
+<!-- WHO -->
+<section class="sec s4" id="s4">
+  <div class="packslot" data-pack="s4"></div>
+  <h2 class="sec-title big">Anyone who<br>sweats.</h2>
+  <p class="note">Teams buy in bulk. Solo athletes grab one pack.</p>
+  <div class="cols">
+    <div class="col"><div class="slot" data-slot="s4-0"></div><div class="num">8.27M</div><h4>Teams</h4><p>High school athletes, plus 554K in NCAA. Coaches and parents often pay.</p><q>Refuel in two minutes</q></div>
+    <div class="col"><div class="slot" data-slot="s4-1"></div><div class="num">77M</div><h4>Gyms + runners</h4><p>US gym members, plus runners. Sweat hard 3 to 6 times a week.</p><q>No mixing, no mess</q></div>
+    <div class="col"><div class="slot" data-slot="s4-2"></div><div class="num">OSHA</div><h4>Work crews</h4><p>Outdoor crews in summer heat, reached through safety managers.</p><q>Easy salt on the job</q></div>
+  </div>
+</section>
+
+<!-- BUY -->
+<section class="sec s5" id="s5">
+  <div class="packslot" data-pack="s5"></div>
+  <h2 class="sec-title big">Three ways<br>to buy.</h2>
+  <div class="row3">
+    <div class="price"><div class="slot" data-slot="s5-0"></div><div class="slot x xr" data-slot="s5-3"></div>
+      <div class="amt">$1.49</div><h4>Single pack</h4><p>4 chews. For one practice or workout.</p><div class="mono">Single pack</div></div>
+    <div class="price"><div class="slot x xl" data-slot="s5-4"></div><div class="slot" data-slot="s5-1"></div>
+      <div class="amt">$14.99</div><h4>Box of 12</h4><p>For regular users. About $1.25 a pack.</p><div class="mono">12 packs</div></div>
+    <div class="price top"><div class="slot" data-slot="s5-2"></div><div class="slot x xr" data-slot="s5-5"></div>
+      <div class="amt">$49</div><h4>Team box of 48</h4><p>Teams, gyms, crews. About $1.02 a pack.</p><div class="mono">48 packs</div></div>
+  </div>
+  <div class="buyrow">
+    <small>HalfTime Chews is a class project idea, not a real product. Class demo: no real payment.</small>
+    <a class="primary hit" href="../#order">Shop now<span class="plus">+</span></a>
+  </div>
+</section>
+
+<script type="module">
+import * as THREE from 'three';
+import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
+import {mergeVertices} from 'three/addons/utils/BufferGeometryUtils.js';
+import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
+/* Blender-made models (models/*.glb). If they fail to load the page falls back to the code-built shapes. */
+let USE_GLB=false,GLB_PACK=null,GLB_GUM=null;
+try{
+  const L=new GLTFLoader();
+  const [pk,gm]=await Promise.all([L.loadAsync('models/pack.glb'),L.loadAsync('models/gummy.glb')]);
+  GLB_PACK=pk.scene;GLB_GUM=gm.scene.getObjectByName('gum');
+  if(!GLB_PACK.getObjectByName('pk_front')||!GLB_GUM||!GLB_GUM.geometry)throw new Error('glb parts missing');
+  USE_GLB=true;
+}catch(e){console.warn('GLB load failed, using code-built models',e)}
+
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const lerp=(a,b,t)=>a+(b-a)*t;
+const sst=(a,b,x)=>{const t=clamp((x-a)/(b-a));return t*t*(3-2*t)};
+const eo=t=>1-Math.pow(1-t,3), ei=t=>t*t, eio=t=>t*t*(3-2*t);
+const qs=new URLSearchParams(location.search);
+const FREEZE=qs.has('p');
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isM=()=>innerWidth<=820;
+
+/* ---------- strengths ---------- */
+const FL={
+  green:{css:'#3DD68C',gum:0x2fc97f,mg:150,bg:['#0e6b46','#06321f','#010a06']},
+  yellow:{css:'#FFD23F',gum:0xffc61f,mg:250,bg:['#826006','#3f2f03','#100b01']},
+  red:{css:'#E5484D',gum:0xe03840,mg:500,bg:['#8a2023','#430f11','#110203']}
+};
+const ORDER=['green','yellow','red'];
+let cur='green';
+
+/* ---------- renderer ---------- */
+const canvas=$('#gl');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:'high-performance'});
+renderer.setPixelRatio(Math.min(devicePixelRatio||1,isM()?1.5:2));
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+renderer.toneMapping=THREE.NoToneMapping;
+const scene=new THREE.Scene();
+const pmrem=new THREE.PMREMGenerator(renderer);
+scene.environment=pmrem.fromScene(new RoomEnvironment(),0.04).texture;
+const camera=new THREE.PerspectiveCamera(30,1,0.1,100);
+const VH=10, CAM_D=(VH/2)/Math.tan(15*Math.PI/180);
+camera.position.set(0,0,CAM_D);
+const key=new THREE.DirectionalLight(0xffffff,1.5); key.position.set(-4,6,9); scene.add(key);
+
+const pxToWorld=(px,py,z,out=new THREE.Vector3())=>{
+  const k=(CAM_D-z)/CAM_D, W=VH*innerWidth/innerHeight;
+  return out.set((px/innerWidth-.5)*W*k,(.5-py/innerHeight)*VH*k,z);
+};
+const pxLen=(px,z)=>px*(VH/innerHeight)*(CAM_D-z)/CAM_D;
+
+/* ---------- textures ---------- */
+const logoImg=new Image(); logoImg.src='../brand/logo-on-lime.png';
+function rr(g,x,y,w,h,r){g.beginPath();g.moveTo(x+r,y);g.arcTo(x+w,y,x+w,y+h,r);g.arcTo(x+w,y+h,x,y+h,r);g.arcTo(x,y+h,x,y,r);g.arcTo(x,y,x+w,y,r);g.closePath()}
+function mkTex(c){const t=new THREE.CanvasTexture(c);t.flipY=!USE_GLB;t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=renderer.capabilities.getMaxAnisotropy();return t}
+function drawLabel(f){
+  const c=document.createElement('canvas');c.width=1024;c.height=1536;const g=c.getContext('2d');
+  g.fillStyle='#0c0c0b';g.fillRect(0,0,1024,1536);
+  const sh=g.createLinearGradient(0,0,1024,0);sh.addColorStop(0,'rgba(255,255,255,.06)');sh.addColorStop(.45,'rgba(255,255,255,0)');sh.addColorStop(1,'rgba(255,255,255,.05)');
+  g.fillStyle=sh;g.fillRect(0,0,1024,1536);
+  g.textAlign='center';g.fillStyle='#D4F53C';g.font='500 30px JB, monospace';g.letterSpacing='9px';g.fillText('ELECTROLYTE CHEWS',512+4,262);g.letterSpacing='0px';
+  g.fillStyle='#D4F53C';rr(g,96,330,832,640,48);g.fill();
+  if(logoImg.complete&&logoImg.naturalWidth){const lw=660,lh=lw*639/2000;g.drawImage(logoImg,512-lw/2,420,lw,lh)}
+  g.fillStyle='#0b0b0a';g.font='800 62px IT, sans-serif';g.fillText('Built for the second half.',512,760);
+  g.font='500 32px JB, monospace';g.letterSpacing='4px';g.fillText('4 CHEWS · HEAT-RESISTANT',512+2,880);g.letterSpacing='0px';
+  g.fillStyle=FL[f].css;rr(g,96,1030,832,290,48);g.fill();
+  g.fillStyle='#0b0b0a';g.textAlign='left';g.font='800 238px IT, sans-serif';g.fillText(String(FL[f].mg),146,1258);
+  const nw=g.measureText(String(FL[f].mg)).width;
+  g.font='500 36px JB, monospace';g.fillText('MG SODIUM',146+nw+34,1150);g.fillText('PER PACK',146+nw+34,1200);
+  g.font='500 30px JB, monospace';g.fillStyle='#8f8c82';g.textAlign='center';g.fillText('HALFTIME · CLASS PROJECT CONCEPT',512,1440);
+  return mkTex(c);
+}
+function drawBack(){
+  const c=document.createElement('canvas');c.width=1024;c.height=1536;const g=c.getContext('2d');
+  g.fillStyle='#0c0c0b';g.fillRect(0,0,1024,1536);
+  g.textAlign='center';g.fillStyle='#D4F53C';g.font='800 90px IT, sans-serif';g.fillText('Tear. Chew.',512,640);g.fillText('Keep going.',512,740);
+  g.fillStyle='#cfcbc0';g.font='500 34px JB, monospace';g.letterSpacing='4px';
+  g.fillText('PICK GREEN, YELLOW OR RED',512,880);g.fillText('2 CHEWS ABOUT EVERY 30 MIN',512,940);g.letterSpacing='0px';
+  return mkTex(c);
+}
+function drawStrip(){
+  const c=document.createElement('canvas');c.width=1024;c.height=154;const g=c.getContext('2d');
+  g.fillStyle='#0c0c0b';g.fillRect(0,0,1024,154);
+  g.strokeStyle='#D4F53C';g.lineWidth=4;g.setLineDash([22,16]);g.beginPath();g.moveTo(0,148);g.lineTo(1024,148);g.stroke();g.setLineDash([]);
+  g.fillStyle='#D4F53C';g.font='500 30px JB, monospace';g.textAlign='center';g.letterSpacing='9px';g.fillText('TEAR HERE',512,92);
+  return mkTex(c);
+}
+
+/* ---------- pack ---------- */
+const PW=2.9,PH=4.3,PD=.85,V_TEAR=.9;
+const prof=v=>v<=V_TEAR?.03+.97*sst(0,.18,v)*(1-.55*sst(.55,V_TEAR,v)):.03+.4365*(1-sst(V_TEAR,.97,v));
+function pouchPart(v0,v1,side,nv,piv,vmap){
+  const nu=56,pos=[],uv=[],idx=[];
+  for(let j=0;j<=nv;j++){const v=lerp(v0,v1,j/nv),p=prof(v);
+    for(let i=0;i<=nu;i++){const u=i/nu,d=PD*p*Math.sqrt(Math.sin(Math.PI*u)+1e-6);
+      pos.push((u-.5)*PW*(1-.06*p)-piv[0],(v-.5)*PH-piv[1],side*d);
+      uv.push(side>0?u:1-u,vmap?vmap(v):v);}}
+  for(let j=0;j<nv;j++)for(let i=0;i<nu;i++){const a=j*(nu+1)+i,b=a+1,c=a+nu+1,d=c+1;
+    if(side>0)idx.push(a,b,c,b,d,c);else idx.push(a,c,b,b,c,d);}
+  const g=new THREE.BufferGeometry();
+  g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+  g.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));
+  g.setIndex(idx);g.computeVertexNormals();return g;
+}
+const pack=new THREE.Group();scene.add(pack);
+const labelTex={},backTex=null;
+const pm={
+  front:new THREE.MeshPhysicalMaterial({roughness:.55,metalness:0,clearcoat:.12,clearcoatRoughness:.5,envMapIntensity:.55}),
+  back:new THREE.MeshPhysicalMaterial({roughness:.6,clearcoat:.1,clearcoatRoughness:.5,envMapIntensity:.55}),
+  inner:new THREE.MeshStandardMaterial({color:0x050505,roughness:1,side:THREE.BackSide}),
+  sf:new THREE.MeshPhysicalMaterial({roughness:.55,clearcoat:.1,clearcoatRoughness:.5,envMapIntensity:.55,transparent:true}),
+  sb:new THREE.MeshPhysicalMaterial({roughness:.6,clearcoat:.1,clearcoatRoughness:.5,envMapIntensity:.55,transparent:true}),
+  cap:new THREE.MeshStandardMaterial({color:0x040404,roughness:1,side:THREE.DoubleSide})
+};
+const pivot=[-.5*PW*(1-.06*prof(V_TEAR)),(V_TEAR-.5)*PH];
+const strip=new THREE.Group();strip.position.set(pivot[0],pivot[1],0);pack.add(strip);
+if(USE_GLB){
+  const GG=n=>GLB_PACK.getObjectByName(n).geometry;
+  const innerM=new THREE.MeshStandardMaterial({color:0x050505,roughness:1});
+  pack.add(new THREE.Mesh(GG('pk_front'),pm.front),new THREE.Mesh(GG('pk_back'),pm.back),new THREE.Mesh(GG('pk_inner_f'),innerM),new THREE.Mesh(GG('pk_inner_b'),innerM),new THREE.Mesh(GG('pk_cap'),pm.cap));
+  strip.add(new THREE.Mesh(GG('pk_strip_f'),pm.sf),new THREE.Mesh(GG('pk_strip_b'),pm.sb));
+}else{
+const noPiv=[0,0];
+const gF=pouchPart(0,V_TEAR,1,90,noPiv), gB=pouchPart(0,V_TEAR,-1,90,noPiv);
+pack.add(new THREE.Mesh(gF,pm.front),new THREE.Mesh(gB,pm.back),new THREE.Mesh(gF,pm.inner),new THREE.Mesh(gB,pm.inner));
+// dark opening cap
+(()=>{const nu=56,pos=[],idx=[],y=(V_TEAR-.5)*PH,p=prof(V_TEAR);
+  for(let i=0;i<=nu;i++){const u=i/nu,x=(u-.5)*PW*(1-.06*p),d=PD*p*Math.sqrt(Math.sin(Math.PI*u)+1e-6);pos.push(x,y,-d,x,y,d);}
+  for(let i=0;i<nu;i++){const a=i*2;idx.push(a,a+1,a+2,a+1,a+3,a+2)}
+  const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setIndex(idx);g.computeVertexNormals();
+  pack.add(new THREE.Mesh(g,pm.cap));})();
+// tear strip (hinged at the top-left corner of the opening)
+const sv=v=>(v-V_TEAR)/(1-V_TEAR);
+strip.add(new THREE.Mesh(pouchPart(V_TEAR,1,1,16,pivot,sv),pm.sf),new THREE.Mesh(pouchPart(V_TEAR,1,-1,16,pivot,sv),pm.sb));
+const stripFrontBack=pm.sb;
+}
+
+/* ---------- gummies ---------- */
+const gumGeoCode=(()=>{
+  const e=2/3.4,NT=28,NP=48,pos=[],idx=[];
+  const sg=x=>x<0?-1:1,cc=(w,m)=>sg(Math.cos(w))*Math.pow(Math.abs(Math.cos(w)),m),ss=(w,m)=>sg(Math.sin(w))*Math.pow(Math.abs(Math.sin(w)),m);
+  for(let i=0;i<=NT;i++){const th=-Math.PI/2+Math.PI*i/NT;for(let j=0;j<=NP;j++){const ph=-Math.PI+2*Math.PI*j/NP;pos.push(.5*cc(th,e)*cc(ph,e),.34*ss(th,e),.5*cc(th,e)*ss(ph,e));}}
+  for(let i=0;i<NT;i++)for(let j=0;j<NP;j++){const a=i*(NP+1)+j,b=a+1,c=a+NP+1,d=c+1;idx.push(a,c,b,b,c,d);}
+  let g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.setIndex(idx);
+  g=mergeVertices(g,1e-4);g.computeVertexNormals();
+  return g;
+})();
+const gumGeo=USE_GLB?(()=>{const g=GLB_GUM.geometry.clone();g.rotateX(Math.PI/2);return g})():gumGeoCode;
+const gumMat={};
+ORDER.forEach(f=>{const col=new THREE.Color(FL[f].gum);
+  gumMat[f]=new THREE.MeshPhysicalMaterial({color:col,roughness:.2,metalness:0,clearcoat:1,clearcoatRoughness:.12,sheen:.6,sheenRoughness:.4,sheenColor:col.clone().lerp(new THREE.Color(1,1,1),.4),emissive:col,emissiveIntensity:.12,envMapIntensity:1.1});});
+
+if(USE_GLB){const tl=new THREE.TextureLoader();
+  const lt=(u,srgb)=>{const t=tl.load(u);t.flipY=false;if(srgb)t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=8;return t};
+  const gN=lt('models/gum_normal.png',false);
+  ORDER.forEach(f=>{const m=gumMat[f];m.map=lt(`models/gum_${f}.jpg`,true);m.color.set(0xffffff);m.normalMap=gN;m.normalScale.set(.6,.6);m.emissiveIntensity=.06;m.needsUpdate=true});}
+const gummies=[];
+function addGummy(f,kind,i){
+  const m=new THREE.Mesh(gumGeo,gumMat[f]);scene.add(m);
+  const g={m,kind,i,f,ang:Math.random()*6,spd:1,rx:0,ry:0,apex:new THREE.Vector3(),keys:[],home:new THREE.Vector3(),hs:1,dir:i%2?1:-1,rest:[.42,(i%3-1)*.4,-.1*(i%3-1)]};
+  gummies.push(g);return g;
+}
+ORDER.forEach((f,i)=>addGummy(f,'core',i));
+for(let i=0;i<6;i++)addGummy('green','amb',i);
+const AMB=gummies.filter(g=>g.kind==='amb'),CORE=gummies.filter(g=>g.kind==='core');
+
+/* ---------- layout from the DOM ---------- */
+let slots={},packSlots={},vw=1,vh=1;
+const V_IN=new THREE.Vector3(),V_MOUTH=new THREE.Vector3(),V_CEN=new THREE.Vector3();
+const T=(p,pos,s,tum,mode,arc)=>({p,pos,s,tum,mode,arc});
+const SLOT_Z=.5;
+function measure(){
+  vw=innerWidth;vh=innerHeight;
+  slots={};packSlots={};
+  $$('[data-slot]').forEach(el=>{const r=el.getBoundingClientRect();
+    slots[el.dataset.slot]={v:pxToWorld(r.left+r.width/2,r.top+r.height/2,SLOT_Z),s:pxLen(r.width,SLOT_Z)/1.0};});
+  $$('[data-pack]').forEach(el=>{const r=el.getBoundingClientRect();
+    packSlots[el.dataset.pack]={v:pxToWorld(r.left+r.width/2,r.top+r.height/2,0),h:pxLen(r.height,0),w:pxLen(r.width,0)};});
+}
+const HOME_D=[ // fx,fy,z,scale
+  [.37,.24,1.2,1.15],[.65,.30,.6,1.0],[.60,.77,1.8,1.25],
+  [.36,.71,-.6,.7],[.50,.12,-1.4,.55],[.76,.52,.2,.85],[.86,.38,-2,.5],[.45,.90,-.8,.6],[.90,.64,-1.6,.55]];
+const HOME_M=[
+  [.22,.30,1.2,.8],[.80,.34,.6,.7],[.78,.62,1.4,.85],
+  [.14,.55,-.6,.5],[.50,.16,-1.4,.4],[.88,.46,.2,.5],[.30,.64,-2,.4],[.60,.58,-.8,.4],[.10,.40,-1.6,.4]];
+function buildTracks(){
+  const HD=isM()?HOME_M:HOME_D;
+  const offB=[.12,.3,.46,.62,.78,.9],offT=[.2,.5,.8];
+  gummies.forEach((g,gi)=>{
+    const hd=HD[gi];pxToWorld(hd[0]*vw,hd[1]*vh,hd[2],g.home);g.hs=hd[3];
+    const home=g.home,k=[T(0,home,g.hs,1),T(.095,home,g.hs,1),T(.145,V_IN,.25,1,'ease'),T(.185,V_MOUTH,.7,1,'rise')];
+    if(g.kind==='core'){
+      const c=g.i,S=n=>slots[n+'-'+c];
+      k.push(T(.215,g.apex,.9,1,'rise'));
+      k.push(T(.30,S('s2').v,S('s2').s,0,'fall'),T(.40,S('s2').v,S('s2').s,0,'ease'),
+             T(.50,S('s3').v,S('s3').s,0,'hop',1.3),T(.62,S('s3').v,S('s3').s,0,'ease'),
+             T(.70,S('s4').v,S('s4').s,0,'hop',1.3),T(.80,S('s4').v,S('s4').s,0,'ease'),
+             T(.89,S('s5').v,S('s5').s,0,'hop',1.3),T(1,S('s5').v,S('s5').s,0,'ease'));
+    }else{
+      const a=g.i,ob=pxToWorld(offB[a]*vw,vh*1.25,0),ot=pxToWorld(offT[a%3]*vw,-vh*.2,0);
+      k.push(T(.215,g.apex,.9,1,'rise'),T(.30,ob,.9,1,'fall'));
+      if(a<3){const ex=slots['s5-'+(3+a)];
+        k.push(T(.80,ot,ex.s,1,'cut'),T(.90,ex.v,ex.s,0,'fall'),T(1,ex.v,ex.s,0,'ease'));}
+      else k.push(T(1,ob,.9,1,'ease'));
+    }
+    g.keys=k;
+  });
+}
+const PK=[[0,'hero'],[.21,'hero'],[.29,'s2'],[.42,'s2'],[.50,'s3'],[.62,'s3'],[.70,'s4'],[.80,'s4'],[.88,'s5'],[1,'s5']];
+const RYK=[[0,0],[.1,0],[.2,.55],[.3,0],[.5,.38],[.62,.38],[.7,-.38],[.8,-.38],[.9,0],[1,0]];
+function keyInterp(arr,P,fn){
+  if(P<=arr[0][0])return fn(arr[0],arr[0],0);
+  for(let i=1;i<arr.length;i++)if(P<=arr[i][0]){const a=arr[i-1],b=arr[i];return fn(a,b,eio((P-a[0])/(b[0]-a[0])));}
+  const l=arr[arr.length-1];return fn(l,l,0);
+}
+
+/* ---------- state ---------- */
+const S={spin:0,imp:0,pop:1,busy:false};
+const mouse={x:0,y:0,px:-999,py:-999},cm={x:0,y:0};
+addEventListener('mousemove',e=>{mouse.x=e.clientX/innerWidth-.5;mouse.y=e.clientY/innerHeight-.5;mouse.px=e.clientX;mouse.py=e.clientY});
+addEventListener('touchmove',e=>{const t=e.touches[0];if(t){mouse.x=t.clientX/innerWidth-.5;mouse.y=t.clientY/innerHeight-.5;mouse.px=t.clientX;mouse.py=t.clientY}},{passive:true});
+let P=0,TP=0,time=FREEZE?2:0;
+const secs=[['s1',-1,-1,.085,.125],['s2',.255,.30,.40,.44],['s3',.45,.50,.60,.64],['s4',.65,.70,.79,.83],['s5',.84,.89,2,3]].map(a=>({el:document.getElementById(a[0]),w:a.slice(1)}));
+const navs=$$('.nav a');
+
+/* ---------- flavor switch ---------- */
+function applyFlavorStatic(f){
+  pm.front.map=labelTex[f];pm.front.needsUpdate=true;
+  AMB.forEach(g=>{g.m.material=gumMat[f];g.f=f});
+  $$('[data-f]').forEach(el=>el.classList.toggle('on',el.dataset.f===f));
+  const b=FL[f].bg,r=document.documentElement.style;r.setProperty('--in',b[0]);r.setProperty('--mid',b[1]);r.setProperty('--out',b[2]);
+}
+function setFlavor(f){
+  if(f===cur)return;
+  if(S.busy)return;
+  S.busy=true;cur=f;
+  $$('[data-f]').forEach(el=>el.classList.toggle('on',el.dataset.f===f));
+  const b=FL[f].bg;
+  gsap.to(document.documentElement,{'--in':b[0],'--mid':b[1],'--out':b[2],duration:1.5,ease:'power2.inOut'});
+  // pack spin, label swaps at the half turn
+  gsap.to(S,{spin:Math.PI,duration:.6,ease:'power2.in',onComplete:()=>{
+    pm.front.map=labelTex[f];pm.front.needsUpdate=true;
+    gsap.to(S,{spin:Math.PI*2,duration:1.5,ease:'back.out(0.7)',onComplete:()=>{S.spin=0;S.busy=false}});
+  }});
+  // ambient gummies pull in, change colour, burst back out
+  gsap.to(S,{imp:1,duration:.5,ease:'power2.in',onComplete:()=>{
+    AMB.forEach(g=>{g.m.material=gumMat[f];g.f=f});
+    gsap.to(S,{imp:0,duration:.9,delay:.3,ease:'back.out(1.5)'});
+  }});
+}
+$$('.card,.str').forEach(el=>{
+  el.addEventListener('click',()=>setFlavor(el.dataset.f));
+  el.addEventListener('mouseenter',()=>{if(el.classList.contains('str'))setFlavor(el.dataset.f)});
+  el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();setFlavor(el.dataset.f)}});
+});
+
+/* ---------- gummy evaluation ---------- */
+const tmp=new THREE.Vector3(),prj=new THREE.Vector3();
+function evalG(g,Pv,out){
+  const k=g.keys;let a=k[0],b=k[0],t=0;
+  if(Pv>k[0].p){a=b=k[k.length-1];
+    for(let i=1;i<k.length;i++)if(Pv<=k[i].p){a=k[i-1];b=k[i];t=(Pv-a.p)/(b.p-a.p);break;}}
+  const A=a.pos,B=b.pos;
+  let x,y,z;
+  switch(b.mode){
+    case 'fall':x=lerp(A.x,B.x,eo(t));y=lerp(A.y,B.y,ei(t));z=lerp(A.z,B.z,t);break;
+    case 'rise':x=lerp(A.x,B.x,eo(t));y=lerp(A.y,B.y,eo(t));z=lerp(A.z,B.z,t);break;
+    case 'hop':{const e=eio(t);x=lerp(A.x,B.x,e);y=lerp(A.y,B.y,e)+Math.sin(Math.PI*t)*(b.arc||1);z=lerp(A.z,B.z,e);break;}
+    case 'cut':x=A.x;y=A.y;z=A.z;break;
+    default:{const e=eio(t);x=lerp(A.x,B.x,e);y=lerp(A.y,B.y,e);z=lerp(A.z,B.z,e);}
+  }
+  out.pos.set(x,y,z);
+  out.s=lerp(a.s,b.s,b.mode==='cut'?0:eio(t));
+  out.tum=b.tum;out.mode=b.mode;out.t=t;
+}
+const ev={pos:new THREE.Vector3(),s:1,tum:1,mode:'',t:0};
+
+function frame(now){
+  requestAnimationFrame(frame);
+  const dt=Math.min(.05,(now-(frame.l||now))/1000);frame.l=now;
+  if(!FREEZE&&!reduce)time+=dt;
+  // scroll progress
+  const max=Math.max(1,document.documentElement.scrollHeight-innerHeight);
+  TP=clamp(scrollY/max);
+  P=FREEZE?TP:P+(TP-P)*Math.min(1,dt*9);
+  cm.x+=(mouse.x-cm.x)*.05;cm.y+=(mouse.y-cm.y)*.05;
+  const heroF=1-sst(.075,.115,P);
+  // sections
+  secs.forEach(s=>{const o=sst(s.w[0],s.w[1],P)*(1-sst(s.w[2],s.w[3],P));
+    s.el.style.opacity=o.toFixed(3);s.el.style.visibility=o>.01?'visible':'hidden';});
+  const ni=P<.2?0:P<.44?1:P<.64?2:P<.83?3:4;navs.forEach((n,i)=>n.classList.toggle('on',i===ni));
+  // pack transform
+  const sl=keyInterp(PK,P,(a,b,e)=>{const A=packSlots[a[1]],B=packSlots[b[1]];if(!A||!B)return null;
+    return{x:lerp(A.v.x,B.v.x,e),y:lerp(A.v.y,B.v.y,e),s:lerp(Math.min(A.h/PH,A.w/PW),Math.min(B.h/PH,B.w/PW),e)}});
+  if(sl){
+    const fl=reduce?0:Math.sin(time*1.05)*.1;
+    pack.position.set(sl.x,sl.y+fl*sl.s,0);pack.scale.setScalar(sl.s);
+    const tear=sst(.11,.19,P)*(1-sst(.2,.28,P));
+    const ry=keyInterp(RYK,P,(a,b,e)=>lerp(a[1],b[1],e));
+    const mf=.45+.55*heroF;
+    pack.rotation.set(cm.y*.32*mf+.55*tear,ry+cm.x*.7*mf+S.spin,0);
+  }
+  // tear strip
+  const pe=sst(.125,.19,P),fade=1-sst(.165,.205,P);
+  strip.rotation.z=pe*1.7;strip.position.set(pivot[0]+pe*.2,pivot[1]+pe*.9,pe*.6);
+  strip.visible=P<.215;pm.sf.opacity=fade;pm.sb.opacity=fade;
+  pack.updateMatrixWorld(true);
+  pack.localToWorld(V_IN.set(0,.1*PH*-.2,0));
+  pack.localToWorld(V_MOUTH.set(0,(V_TEAR-.5)*PH+.15,.1));
+  // gummies
+  const pcW=V_CEN.copy(pack.position);
+  gummies.forEach((g,gi)=>{
+    g.apex.copy(V_MOUTH);g.apex.x+=(gi%3-1)*1.4+(g.kind==='amb'?(g.i-2.5)*.35:0);g.apex.y+=.5+(gi%4)*.16;g.apex.z+=.6;
+    evalG(g,P,ev);
+    const m=g.m,idleOn=ev.tum>.5;
+    tmp.copy(ev.pos);
+    let sc=ev.s;
+    // hero-only life: parallax, float, repel
+    if(heroF>0&&g.keys[1].p>=.09&&P<.12){
+      const zf=(g.home.z+2.5)*.07;
+      tmp.x-=cm.x*zf*3*heroF;tmp.y+=cm.y*zf*3*heroF;
+      const ph=(time+gi*.7)*(Math.PI*2/[5,7,6,8,5.5,6.5,9,11,10][gi%9]);
+      if(!reduce){tmp.y+=Math.sin(ph)*.2*heroF;}
+      prj.copy(tmp).project(camera);
+      const sx=(prj.x*.5+.5)*vw,sy=(-prj.y*.5+.5)*vh,dx=mouse.px-sx,dy=mouse.py-sy,d=Math.hypot(dx,dy)||1;
+      let tx=0,ty=0,sp=1;
+      if(d<400&&!FREEZE){const f=(400-d)/400;tx=-(dx/d)*f*80;ty=-(dy/d)*f*80;sp=1+f*5;}
+      g.rx+=(tx-g.rx)*.1;g.ry+=(ty-g.ry)*.1;g.spd=sp;
+      tmp.x+=g.rx*VH/vh*heroF;tmp.y-=g.ry*VH/vh*heroF;
+    }else if(ev.tum<.5&&ev.mode==='ease'&&!reduce){tmp.y+=Math.sin(time*1.4+gi)*.035;}
+    // implode toward the pack (ambient only)
+    if(g.kind==='amb'&&S.imp!==0){tmp.lerp(pcW,clamp(S.imp,-.6,1));sc*=Math.max(.05,1-.88*S.imp);}
+    m.position.copy(tmp);m.scale.setScalar(Math.max(.001,sc));
+    // orientation
+    if(!FREEZE&&!reduce)g.ang+=dt*(.45+g.spd*.5);
+    if(idleOn){m.rotation.set(g.ang*.9+gi,g.ang*1.2,g.ang*.5);}
+    else{
+      let extra=0;
+      if(ev.mode==='fall')extra=(1-eo(ev.t))*Math.PI*2*1.5*g.dir;
+      else if(ev.mode==='hop')extra=eio(ev.t)*Math.PI*2*g.dir;
+      m.rotation.set(g.rest[0]+extra*.6,g.rest[1]+extra,g.rest[2]);
+    }
+    m.visible=sc>.01;
+  });
+  renderer.render(scene,camera);
+}
+
+/* ---------- bubbles ---------- */
+function bubble(){
+  if(reduce||document.hidden)return;const host=$('#bubbles');if(host.childElementCount>26)return;
+  const b=document.createElement('i');b.className='bub';const s=Math.random()*14+6;
+  b.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;animation-duration:${Math.random()*6+5}s`;
+  host.appendChild(b);setTimeout(()=>b.remove(),12000);
+}
+setInterval(bubble,isM()?900:450);
+
+/* ---------- nav ---------- */
+$$('[data-go]').forEach(a=>a.addEventListener('click',()=>{
+  const max=document.documentElement.scrollHeight-innerHeight;
+  scrollTo({top:parseFloat(a.dataset.go)*max,behavior:reduce?'auto':'smooth'});}));
+
+/* ---------- resize + start ---------- */
+function resize(){
+  renderer.setPixelRatio(Math.min(devicePixelRatio||1,isM()?1.5:2));
+  renderer.setSize(innerWidth,innerHeight,false);
+  camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();
+  measure();buildTracks();
+}
+async function start(){
+  try{await Promise.all([document.fonts.load('800 80px IT'),document.fonts.load('500 30px JB'),logoImg.decode().catch(()=>{})]);}catch(e){}
+  ORDER.forEach(f=>labelTex[f]=drawLabel(f));
+  const bt=drawBack(),st=drawStrip();
+  pm.back.map=bt;pm.sf.map=st;pm.sb.map=st;
+  const f0=qs.get('flavor');if(f0&&FL[f0])cur=f0;
+  applyFlavorStatic(cur);
+  resize();
+  if(FREEZE){const max=document.documentElement.scrollHeight-innerHeight;scrollTo(0,parseFloat(qs.get('p'))*max);P=TP=parseFloat(qs.get('p'));}
+  addEventListener('resize',resize);
+  document.fonts.ready.then(()=>{measure();buildTracks()});
+  requestAnimationFrame(frame);
+  window.__ht={ready:true,setFlavor,gummies,pack,P:()=>P};
+}
+start();
+</script>
+</body>
+</html>
