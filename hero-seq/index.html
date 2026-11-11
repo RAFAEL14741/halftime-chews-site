@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<title>HalfTime Chews — scroll hero (crossfade version)</title>
+<meta name="description" content="Soft electrolyte chews. 4 chews per pack, 3 strengths, no water or mixing. A class project idea.">
+<style>
+@font-face{font-family:IT;src:url(../fonts/inter-tight-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:IT;src:url(../fonts/inter-tight-latin-600-normal.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:IT;src:url(../fonts/inter-tight-latin-800-normal.woff2) format("woff2");font-weight:800;font-display:swap}
+@font-face{font-family:JB;src:url(../fonts/jetbrains-mono-latin-500-normal.woff2) format("woff2");font-weight:500;font-display:swap}
+:root{--bg:#0B0B0A;--tx:#F2EEE4;--soft:#CFCBC0;--mu:#9E9B90;--lime:#D4F53C;--g:#3DD68C;--y:#FFD23F;--r:#E5484D}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg)}
+body{background:var(--bg);color:var(--tx);font-family:IT,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:clip}
+a{color:inherit}
+.nav{position:fixed;inset:0 0 auto 0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:18px clamp(18px,4vw,48px);pointer-events:none}
+.nav>*{pointer-events:auto}
+.wm{font-weight:800;font-size:20px;letter-spacing:-.02em;text-decoration:none}.wm b{color:var(--lime)}
+.nav a.back{font-family:JB,monospace;font-size:12px;color:var(--soft);text-decoration:none;border:1px solid #33332e;padding:8px 14px;border-radius:99px;background:rgba(11,11,10,.6);backdrop-filter:blur(8px)}
+
+.track{height:640vh;position:relative}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.layer{position:absolute;left:50%;top:50%;height:min(94svh,1100px);aspect-ratio:9/16;mix-blend-mode:screen;opacity:0;will-change:transform,opacity;pointer-events:none;-webkit-mask-image:radial-gradient(ellipse closest-side at 50% 50%,#000 70%,transparent 100%);mask-image:radial-gradient(ellipse closest-side at 50% 50%,#000 70%,transparent 100%)}
+.layer img{width:100%;height:100%;object-fit:contain;display:block}
+.packwrap{position:absolute;left:50%;top:50%;height:min(66svh,720px);aspect-ratio:714/1000;will-change:transform;pointer-events:none}
+.packwrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;will-change:opacity}
+.glow{position:absolute;left:50%;top:52%;width:min(80vw,760px);aspect-ratio:1;border-radius:50%;opacity:0;filter:blur(40px);pointer-events:none;will-change:opacity}
+
+.copy{position:absolute;z-index:10;opacity:0;will-change:opacity,transform}
+.hero-copy{left:clamp(18px,5vw,72px);top:50%;transform:translateY(-50%);max-width:min(30vw,420px)}
+.h1{font-weight:800;font-size:clamp(2.7rem,6.4vw,6.4rem);line-height:.92;letter-spacing:-.04em}
+.h1 em{font-style:normal;color:var(--lime)}
+.sub{margin-top:18px;color:var(--soft);font-size:clamp(15px,1.25vw,18px);line-height:1.45;max-width:30ch}
+.pills{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap}
+.pill{font-family:JB,monospace;font-size:12px;color:var(--soft);border:1px solid #33332e;border-radius:99px;padding:7px 12px}
+.cta{display:inline-flex;margin-top:26px;background:var(--lime);color:#0B0B0A;font-weight:600;font-size:16px;padding:15px 24px;border-radius:99px;text-decoration:none}
+.side-copy{right:clamp(18px,5vw,72px);top:50%;transform:translateY(-50%);max-width:min(26vw,360px)}
+.h2{font-weight:800;font-size:clamp(2rem,3.8vw,3.6rem);line-height:.98;letter-spacing:-.035em}
+.p{margin-top:14px;color:var(--soft);font-size:clamp(15px,1.2vw,18px);line-height:1.5}
+.scroll{position:absolute;z-index:10;left:50%;bottom:22px;transform:translateX(-50%);font-family:JB,monospace;font-size:11px;color:var(--mu);transition:opacity .3s}
+
+.lineup{position:absolute;z-index:11;right:clamp(18px,5vw,72px);top:50%;transform:translateY(-50%);width:min(30vw,400px);opacity:0;display:flex;flex-direction:column;gap:12px}
+.lineup h2{margin-bottom:6px}
+.opt{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:auto 1fr;gap:2px 14px;align-items:center;padding:14px 16px;border:1px solid #2a2a26;border-radius:16px;background:rgba(18,18,16,.72);backdrop-filter:blur(8px);transition:border-color .25s,background .25s,transform .25s}
+.opt:focus-visible{outline:2px solid var(--lime);outline-offset:3px}
+.opt .mg{grid-row:1/3;font-weight:800;font-size:1.9rem;letter-spacing:-.03em;line-height:1;min-width:3.3ch}
+.opt .mg small{font-size:.9rem;font-weight:600;color:var(--mu);margin-left:2px}
+.opt b{font-weight:600;font-size:16px}
+.opt span.d{font-size:13px;color:var(--mu)}
+.opt[data-i="0"] .mg{color:var(--g)}.opt[data-i="1"] .mg{color:var(--y)}.opt[data-i="2"] .mg{color:var(--r)}
+.opt.on{background:rgba(26,26,22,.92);transform:translateX(-6px)}
+.opt[data-i="0"].on{border-color:var(--g)}.opt[data-i="1"].on{border-color:var(--y)}.opt[data-i="2"].on{border-color:var(--r)}
+.note{font-size:13px;color:var(--mu);margin-top:2px}
+
+.end{position:absolute;z-index:12;inset:auto 0 0 0;padding:0 clamp(18px,5vw,72px) 26px;display:flex;justify-content:space-between;align-items:flex-end;gap:20px;opacity:0;pointer-events:none}
+.end .fine{font-size:12px;color:var(--mu);max-width:56ch;line-height:1.45}
+.end a{pointer-events:auto}
+.vig{position:absolute;inset:0;z-index:5;pointer-events:none;background:radial-gradient(120% 90% at 50% 50%,transparent 55%,rgba(11,11,10,.7) 100%)}
+
+@media (max-width:760px){
+  .track{height:600vh}
+  .layer{height:min(88svh,900px)}
+  .packwrap{height:min(46svh,520px);top:41%}
+  .hero-copy,.side-copy{left:18px;right:18px;top:auto;bottom:calc(8svh + 8px);transform:none;max-width:none}
+  .h1{font-size:clamp(2.6rem,13vw,3.6rem)}
+  .sub{max-width:34ch;margin-top:12px}
+  .pills{margin-top:14px}.pill{font-size:11px;padding:6px 10px}
+  .cta{margin-top:16px;padding:13px 20px}
+  .h2{font-size:2.1rem}
+  .lineup{left:14px;right:14px;width:auto;top:auto;bottom:18px;transform:none;flex-direction:row;gap:8px}
+  .lineup h2,.lineup .note{display:none}
+  .opt{flex:1;grid-template-columns:1fr;text-align:left;padding:10px 11px;border-radius:14px;gap:0}
+  .opt .mg{grid-row:auto;font-size:1.45rem;min-width:0}
+  .opt b{font-size:13px}.opt span.d{display:none}
+  .opt.on{transform:translateY(-4px)}
+  .lineup-cap{position:absolute;z-index:11;left:18px;right:18px;bottom:calc(86px + env(safe-area-inset-bottom));opacity:0}
+  .end{flex-direction:column-reverse;align-items:flex-start;gap:10px;bottom:132px;padding-bottom:0}
+  .end .fine{max-width:44ch}
+  .vig{background:linear-gradient(to top,rgba(11,11,10,.88) 0%,rgba(11,11,10,.55) 26%,transparent 52%)}
+}
+@media (min-width:761px){.lineup-cap{display:none}}
+@media (prefers-reduced-motion:reduce){.scroll{display:none}}
+</style>
+</head>
+<body>
+<header class="nav"><a class="wm" href="../index.html">Half<b>Time</b></a><a class="back" href="../index.html">← current site</a></header>
+
+<main class="track" id="track">
+ <div class="stage" id="stage">
+  <div class="glow" id="glow"></div>
+
+  <div class="layer" id="fallA"><img src="img/fall-a.webp" alt="" width="900" height="1613"></div>
+  <div class="layer" id="fallB"><img src="img/fall-b.webp" alt="" width="900" height="1613"></div>
+  <div class="layer" id="burst"><img src="img/burst-a.webp" alt="" width="900" height="1613"></div>
+
+  <div class="packwrap" id="packwrap">
+    <img id="pack" src="img/pack.webp" alt="HalfTime Electrolyte Chews pouch" width="714" height="1000">
+    <img id="torn" src="img/pack-torn.webp" alt="" width="714" height="1000" style="opacity:0">
+  </div>
+
+  <div class="layer" id="landG"><img src="img/land-green.webp" alt="Green chews landing on a card" width="900" height="1613"></div>
+  <div class="layer" id="landY"><img src="img/land-yellow.webp" alt="Yellow chews landing on a card" width="900" height="1613"></div>
+  <div class="layer" id="landR"><img src="img/land-red.webp" alt="Red chews landing on a card" width="900" height="1613"></div>
+  <div class="vig"></div>
+
+  <div class="copy hero-copy" id="c0" style="opacity:1">
+    <h1 class="h1">Tear.<br>Chew.<br><em>Keep going.</em></h1>
+    <p class="sub">Soft electrolyte chews. Helps replace electrolytes lost in sweat.</p>
+    <div class="pills"><span class="pill">4 chews per pack</span><span class="pill">no water, no mixing</span></div>
+  </div>
+  <div class="copy side-copy" id="c1">
+    <h2 class="h2">Tear the top.</h2>
+    <p class="p">No water. No mixing. Made to hold up in the heat.</p>
+  </div>
+  <div class="copy side-copy" id="c2">
+    <h2 class="h2">Chew 2 about every 30 minutes.</h2>
+    <p class="p">During hard play or work. Keep drinking water.</p>
+  </div>
+
+  <div class="lineup" id="lineup">
+    <h2 class="h2">Pick your strength.</h2>
+    <button class="opt on" data-i="0" type="button"><span class="mg">150<small>mg</small></span><b>Green, Light</b><span class="d">Practice, gym. Ages 14+</span></button>
+    <button class="opt" data-i="1" type="button"><span class="mg">250<small>mg</small></span><b>Yellow, Hard</b><span class="d">Games, long runs. Ages 14+</span></button>
+    <button class="opt" data-i="2" type="button"><span class="mg">500<small>mg</small></span><b>Red, Extreme</b><span class="d">Heat, long shifts. Ages 16+ only</span></button>
+    <p class="note">Milligrams of sodium per chew. Not sure? Start on green.</p>
+  </div>
+  <p class="lineup-cap copy" id="cap" style="font-size:14px;color:var(--soft)"></p>
+
+  <div class="end" id="end">
+    <p class="fine">HalfTime Chews is a class project idea, not a real product. Product images are AI concepts.</p>
+    <a class="cta" href="../index.html#lineup">See the full lineup</a>
+  </div>
+  <div class="scroll" id="hint">scroll</div>
+ </div>
+</main>
+
+<script src="../js/gsap.min.js"></script>
+<script src="../js/ScrollTrigger.min.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+gsap.set('.layer',{xPercent:-50,yPercent:-50});
+gsap.set('#packwrap',{xPercent:-50,yPercent:-48});
+gsap.set('#glow',{xPercent:-50,yPercent:-50});
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const phone=()=>innerWidth<=760;
+const COL=['#3DD68C','#FFD23F','#E5484D'];
+const CAP=['Green · 150 mg · practice and gym · ages 14+','Yellow · 250 mg · games and long runs · ages 14+','Red · 500 mg · heat and long shifts · ages 16+ only'];
+const D=10.6; // timeline length in "beats"
+const tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{trigger:'#track',start:'top top',end:'bottom bottom',scrub:reduce?true:0.5}});
+const fade=(sel,inAt,outAt,d=.6)=>{ if(inAt!=null) tl.to(sel,{opacity:1,duration:d},inAt); if(outAt!=null) tl.to(sel,{opacity:0,duration:d},outAt); };
+
+// act 0: pack + hero copy
+tl.to('#packwrap',{scale:1.06,duration:1.6},0);
+tl.to('#c0',{opacity:0,y:-18,duration:.6},1.3);
+tl.to('#hint',{opacity:0,duration:.3},.25);
+// act 1: tear -> burst
+tl.to('#pack',{opacity:0,duration:.5},1.9);
+tl.to('#torn',{opacity:1,duration:.5},1.9);
+tl.fromTo('#fallA',{yPercent:-76,scale:.85},{opacity:1,yPercent:-50,scale:1,duration:1.1},2.2);
+tl.to('#c1',{opacity:1,duration:.5},2.3);
+tl.to('#c1',{opacity:0,duration:.5},3.7);
+// act 2: cubes fall, pack leaves
+tl.to('#packwrap',{opacity:0,y:60,duration:.9},3.7);
+tl.to('#fallA',{yPercent:-43,duration:2.1},3.3);
+tl.to('#fallA',{opacity:0,duration:.7},4.7);
+tl.fromTo('#fallB',{yPercent:-72},{opacity:1,yPercent:-50,duration:.8},4.3);
+tl.to('#c2',{opacity:1,duration:.5},4.6);
+tl.to('#c2',{opacity:0,duration:.5},5.9);
+tl.to('#fallB',{yPercent:-46,duration:1.4},5.1);
+// act 3: landing cards
+tl.to('#fallB',{opacity:0,duration:.6},6.4);
+tl.to('#landG',{opacity:1,duration:.7},6.5);
+tl.to('#lineup',{opacity:1,duration:.6},6.7);
+tl.to('#cap',{opacity:1,duration:.6},6.7);
+tl.to('#glow',{opacity:.35,duration:.7,backgroundColor:COL[0]},6.5);
+tl.set('#glow',{backgroundColor:COL[0]},0);
+tl.to('#landG',{opacity:0,duration:.5},8.2);
+tl.to('#landY',{opacity:1,duration:.5},8.2);
+tl.to('#glow',{backgroundColor:COL[1],duration:.5},8.2);
+tl.to('#landY',{opacity:0,duration:.5},9.4);
+tl.to('#landR',{opacity:1,duration:.5},9.4);
+tl.to('#glow',{backgroundColor:COL[2],duration:.5},9.4);
+tl.to('#end',{opacity:1,duration:.6},10);
+tl.to({}, {duration:.01}, D); // pad to D
+
+// strength state follows scroll position; buttons jump to a position
+const stopP=[7.2/D,8.7/D,9.9/D];
+const opts=$$('.opt'), cap=$('#cap');
+let cur=-1;
+function setOn(i){ if(i===cur) return; cur=i; opts.forEach((o,k)=>o.classList.toggle('on',k===i)); cap.textContent=CAP[i]; }
+setOn(0);
+ScrollTrigger.create({trigger:'#track',start:'top top',end:'bottom bottom',onUpdate:s=>{
+  const p=s.progress*D;
+  setOn(p<8.2?0:(p<9.4?1:2));
+}});
+const range=()=>{const t=$('#track');return t.offsetHeight-innerHeight;};
+opts.forEach(o=>o.addEventListener('click',()=>{
+  const i=+o.dataset.i, y=$('#track').offsetTop+range()*stopP[i];
+  scrollTo({top:y,behavior:reduce?'auto':'smooth'});
+}));
+
+// cursor tilt on the pack (desktop, motion ok)
+if(!reduce && matchMedia('(hover:hover)').matches){
+  const pw=$('#packwrap'); const rx=gsap.quickTo(pw,'rotationY',{duration:.6,ease:'power3'}), ry=gsap.quickTo(pw,'rotationX',{duration:.6,ease:'power3'});
+  gsap.set(pw,{transformPerspective:900});
+  addEventListener('pointermove',e=>{ rx((e.clientX/innerWidth-.5)*14); ry(-(e.clientY/innerHeight-.5)*10); });
+}
+// first-load nudge
+
+addEventListener('load',()=>ScrollTrigger.refresh());
+</script>
+</body>
+</html>
